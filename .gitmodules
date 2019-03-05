@@ -1,0 +1,33 @@
+[submodule "qed_django/cyan_app"]
+	path = qed_django/cyan_app
+	url = https://github.com/quanted/cyan_app.git
+[submodule "qed_django/splash_app"]
+	path = qed_django/splash_app
+	url = https://github.com/quanted/splash_app.git
+[submodule "qed_django/hem_app"]
+	path = qed_django/hem_app
+	url = https://github.com/quanted/hem_app.git
+[submodule "qed_django/hwbi_app"]
+	path = qed_django/hwbi_app
+	url = https://github.com/quanted/hwbi_app.git
+[submodule "qed_django/nta_app"]
+	path = qed_django/nta_app
+	url = https://github.com/quanted/nta_app.git
+[submodule "qed_django/pisces_app"]
+	path = qed_django/pisces_app
+	url = https://github.com/quanted/pisces_app.git
+[submodule "qed_django/pram_app"]
+	path = qed_django/pram_app
+	url = https://github.com/quanted/pram_app.git
+[submodule "qed_django/wqt_app"]
+	path = qed_django/wqt_app
+	url = https://github.com/quanted/wqt_app.git
+[submodule "qed_nginx"]
+	path = qed_nginx
+	url = https://github.com/quanted/qed_nginx.git
+[submodule "templates_qed"]
+	path = templates_qed
+	url = https://github.com/quanted/templates_qed.git
+[submodule "static_qed"]
+	path = static_qed
+	url = https://github.com/quanted/static_qed.git
