@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: mongodb
+  name: mongodb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - image: quanted/mongo:latest
+        name: mongodb
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodb-pv
+      restartPolicy: Always
+      volumes:
+      - name: mongodb-pVolume
+        persistentVolumeClaim:
+          claimName: qed-mongodb-pVolume-claim1

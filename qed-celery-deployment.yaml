@@ -1,0 +1,61 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: qed-celery
+  name: qed-celery
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: qed-celery
+    spec:
+      containers:
+      - args:
+        - celery
+        - worker
+        - -A
+        - celery_cgi
+        - -Q
+        - qed
+        - --loglevel=INFO
+        - -c
+        - "2"
+        - -n
+        - qed_worker
+        env:
+        - name: DOCKER_HOSTNAME
+          value: $(HOSTNAME)
+        - name: REDIS_HOSTNAME
+          value: redis
+        image: quanted/qed-flask:latest
+        name: qed-celery
+        resources: {}
+        volumeMounts:
+        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
+          name: sam-preprocessed
+        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
+          name: sam-results
+        - mountPath: /src/hms-flask/data/qed-basins
+          name: qed-basins
+        - mountPath: /src/pVolume
+          name: celery-pVolume
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: ./data/sam-preprocessed
+        name: sam-preprocessed
+      - hostPath:
+          path: ./data/sam-results
+        name: sam-results
+      - hostPath:
+          path: ./data/qed-basins
+        name: qed-basins
+      - name: celery-pVolume
+        persistentVolumeClaim:
+          claimName: qed-celery-pVolume-claim1
+        name: kompose-collected-static
+status: {}

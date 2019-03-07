@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: cts-manager
+  name: cts-manager
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cts-manager
+    spec:
+      containers:
+      - args:
+        - celery
+        - worker
+        - -A
+        - tasks
+        - -Q
+        - manager_queue
+        - -l
+        - info
+        - -n
+        - manager_worker
+        - -c
+        - "1"
+        env:
+        - name: DOCKER_HOSTNAME
+          value: $(HOSTNAME)
+        - name: REDIS_HOSTNAME
+          value: redis
+        image: quanted/cts-celery
+        name: worker-manager
+      restartPolicy: Always

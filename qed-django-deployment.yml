@@ -8,8 +8,8 @@ spec:
   replicas: 1
   template:
     metadata:
-        labels:
-            app: qed-django
+      labels:
+        app: qed-django
     spec:
       containers:
         name: django
