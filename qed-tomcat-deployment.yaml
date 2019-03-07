@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: qed-tomcat
+  name: qed-tomcat
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: qed-tomcat
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Xmx512m
+        image: quanted/qed_tomcat:latest
+        name: qed-tomcat
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/tomcat/conf/tomcat-users.xml
+          name: qed-tomcat-config
+        - mountPath: /usr/local/tomcat/webapps
+          name: qed-tomcat-webapps
+        - mountPath: /home/tomcat/.chemaxon/licenses
+          name: qed-tomcat-licenses
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: ./secrets/tomcat/tomcat-users.xml
+        name: qed-tomcat-config
+      - hostPath:
+          path: ./secrets/tomcat/webapps
+        name: qed-tomcat-webapps
+      - hostPath:
+          path: ./secrets/tomcat/chemaxon/licenses
+        name: qed-tomcat-licenses

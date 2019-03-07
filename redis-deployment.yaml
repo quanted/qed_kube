@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+  name: redis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: quanted/redis:latest
+        name: redis
+        resources: {}
+      hostname: redis
+      restartPolicy: Always
+      volumeMounts:
+        - mountPath: /etc/redis/database
+          name: redis-pVolume
+      restartPolicy: Always
+      volumes:
+      - name: redis-pVolume
+        persistentVolumeClaim:
+          claimName: redis-pVolume-claim1
+    

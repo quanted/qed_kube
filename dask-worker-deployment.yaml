@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: dask-worker
+  name: dask-worker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: dask-worker
+    spec:
+      containers:
+      - env:
+        - name: IN_DOCKER
+          value: "True"
+        - name: PYTHONPATH
+          value: /src:/src/qed
+        image: quanted/dask-worker
+        name: dask-worker
+        volumeMounts:
+        - mountPath: /src/qed
+          name: dask-worker-src
+      hostname: dask-worker
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: ./flask_qed
+        name: dask-worker-src

@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: hms-dotnetcore
+  name: hms-dotnetcore
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hms-dotnetcore
+    spec:
+      containers:
+      - image: quanted/hms-dotnetcore
+        name: hms-dotnetcore
+        volumeMounts:
+        - mountPath: /app/App-Data
+          name: hms-dotnetcore-AppData
+        - mountPath: /app/data
+          name: hms-databases
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: ./hms/Web.Services/App-Data
+          name: hms-dotnetcore-AppData
+      - hostPath:
+          path: ./data/hms-databases
+          name: hms-databases

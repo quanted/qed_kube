@@ -18,9 +18,9 @@ spec:
         name: mongodb
         volumeMounts:
         - mountPath: /data/db
-          name: mongodb-pv
+          name: mongodb-pVolume
       restartPolicy: Always
       volumes:
       - name: mongodb-pVolume
         persistentVolumeClaim:
-          claimName: qed-mongodb-pVolume-claim1
+          claimName: mongodb-pVolume-claim1
