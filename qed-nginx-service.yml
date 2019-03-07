@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: qed-nginx-service
+spec:
+  selector:
+    app: qed-nginx
+  ports:
+  - name: "HTTP"
+    port: 80
+    targetPort: 80
+  - name: "HTTPS"
+    port: 443
+    targetPort: 443

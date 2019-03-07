@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: qed-nginx
+  labels:
+    app: qed-nginx
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: qed-nginx
+  template:
+    metadata:
+      labels:
+        app: qed-nginx
+    spec:
+      containers:
+      - name: qed-nginx
+        image: quanted/qed_nginx:latest
+      restartPolicy: Always
+      ports:
+      - containerPort: 80
+      - containerPort: 443
+      volumeMounts:
+      - mountPath: /etc/nginx/qed
+        name: qed-nginx-certs
+      volumes:
+      - hostPath:
+          path: ./qed_nginx_certs
+        name: qed-nginx-certs

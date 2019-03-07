@@ -1,3 +1,6 @@
+[submodule "qed_django/cts_app"]
+	path = qed_django/cts_app
+	url = https://github.com/quanted/cts_app.git
 [submodule "qed_django/cyan_app"]
 	path = qed_django/cyan_app
 	url = https://github.com/quanted/cyan_app.git
@@ -31,3 +34,6 @@
 [submodule "static_qed"]
 	path = static_qed
 	url = https://github.com/quanted/static_qed.git
+[submodule "flask_qed"]
+	path = flask_qed
+	url = https://github.com/quanted/flask_qed.git
