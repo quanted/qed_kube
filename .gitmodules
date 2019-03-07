@@ -46,3 +46,6 @@
 [submodule "cts_celery"]
 	path = cts_celery
 	url = https://github.com/quanted/cts_celery.git
+[submodule "hms"]
+	path = hms
+	url = https://github.com/quanted/hms.git
