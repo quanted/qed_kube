@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         name: django
-        image: quanted/qed_django:latest
+        image: quanted/qed-django
         env:
         - name: REDIS_HOSTNAME
           value: redis

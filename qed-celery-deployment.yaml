@@ -31,7 +31,7 @@ spec:
           value: $(HOSTNAME)
         - name: REDIS_HOSTNAME
           value: redis
-        image: quanted/qed-flask:latest
+        image: quanted/flask_qed
         name: qed-celery
         resources: {}
         volumeMounts:

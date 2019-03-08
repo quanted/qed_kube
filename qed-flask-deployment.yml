@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: qed-flask
-        image: quanted/qed_flask
+        image: quanted/flask_qed
         env:
         - name: REDIS_HOSTNAME
           value: redis

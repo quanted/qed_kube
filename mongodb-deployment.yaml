@@ -14,7 +14,7 @@ spec:
         app: mongodb
     spec:
       containers:
-      - image: quanted/mongo:latest
+      - image: quanted/mongo
         name: mongodb
         volumeMounts:
         - mountPath: /data/db
