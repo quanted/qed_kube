@@ -143,8 +143,8 @@ With this in mind, the structure for QED in kubernetes could take several forms 
         *   hostPath volumes for secrets, license and webapp data
     *   qed-tomcat-service.yml
 *   PostgreSQL
-    *   qed-postgreSQL-deployment.yml (defines container)
-    *   qed-postgreSQL-persistentVolumeClaim.yml
+    *   qed-postgresql-deployment.yml (defines container)
+    *   qed-postgresql-persistentVolumeClaim.yml
 *   Volumes
     *   qed-django-persistentVolume.yml (persistentVolume)
     *   qed-flask-persistentVolume.yml (persistentVolume)
@@ -162,5 +162,21 @@ Summary:
         6 PersistentVolumeClaims
 
         6 PersistentVolumes
-
-\[TO BE CONTINUED\]
+        
+#### Docker Builds
+| Deployment | Docker Image | Build Status |
+| ---------- | ------------ | ------------ | 
+| qed-nginx-deployment.yml | quanted/qed_nginx | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed_nginx.svg?style=plastic) |
+| qed-django-deployment.yml | quanted/qed-django | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-django.svg?style=plastic) |
+| qed-flask-deployment.yml | quanted/flask_qed | ![Docker Build Status](https://img.shields.io/docker/build/quanted/flask_qed.svg?style=plastic) |
+| qed-celery-deployment.yml | quanted/flask_qed | ![Docker Build Status](https://img.shields.io/docker/build/quanted/flask_qed.svg?style=plastic) |
+| cts-nodejs-deployment.yml | quanted/cts_nodejs | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_nodejs.svg?style=plastic) |
+| cts-celery-deployment.yml | quanted/cts_celery | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_celery.svg?style=plastic) |
+| cts-worker-deployment.yml | quanted/cts_celery | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_celery.svg?style=plastic) |
+| qed-redis-deployment.yml | quanted/redis | ![Docker Build Status](https://img.shields.io/docker/build/quanted/redis.svg?style=plastic) |
+| qed-mongodb-deployment.yml | quanted/mongo | ![Docker Build Status](https://img.shields.io/docker/build/quanted/mongo.svg?style=plastic) |
+| hms-dotnetcore-deployment.yml | quanted/hms-dotnetcore | ![Docker Build Status](https://img.shields.io/docker/build/quanted/hms-dotnetcore.svg?style=plastic) |
+| qed-dask-scheduler-deployment.yml | quanted/qed-dask | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-dask.svg?style=plastic) |
+| qed-dask-worker-deployment.yml | quanted/qed-dask | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-dask.svg?style=plastic) |
+| qed-tomcat-deployment.yml | quanted/tomcat | ![Docker Build Status](https://img.shields.io/docker/build/quanted/tomcat.svg?style=plastic) |
+| qed-postgresql-deployment.yml | TBA | TBA |
