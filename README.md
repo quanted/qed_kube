@@ -166,17 +166,17 @@ Summary:
 #### Docker Builds
 | Deployment | Docker Image | Build Status |
 | ---------- | ------------ | ------------ | 
-| qed-nginx-deployment.yml | [quanted/qed_nginx](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed_nginx) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed_nginx.svg?style=plastic) |
-| qed-django-deployment.yml | [quanted/qed-django](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-django) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-django.svg?style=plastic) |
-| qed-flask-deployment.yml | [quanted/flask_qed](https://cloud.docker.com/u/quanted/repository/docker/quanted/flask_qed) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/flask_qed.svg?style=plastic) |
-| qed-celery-deployment.yml | [quanted/flask_qed](https://cloud.docker.com/u/quanted/repository/docker/quanted/flask_qed) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/flask_qed.svg?style=plastic) |
-| cts-nodejs-deployment.yml | [quanted/cts_nodejs](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_nodejs) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_nodejs.svg?style=plastic) |
-| cts-celery-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_celery.svg?style=plastic) |
-| cts-worker-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/cts_celery.svg?style=plastic) |
-| qed-redis-deployment.yml | [quanted/redis](https://cloud.docker.com/u/quanted/repository/docker/quanted/redis) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/redis.svg?style=plastic) |
-| qed-mongodb-deployment.yml | [quanted/mongo](https://cloud.docker.com/u/quanted/repository/docker/quanted/mongo) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/mongo.svg?style=plastic) |
-| hms-dotnetcore-deployment.yml | [quanted/hms-dotnetcore](https://cloud.docker.com/u/quanted/repository/docker/quanted/hms-dotnetcore) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/hms-dotnetcore.svg?style=plastic) |
-| qed-dask-scheduler-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-dask.svg?style=plastic) |
-| qed-dask-worker-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-dask.svg?style=plastic) |
-| qed-tomcat-deployment.yml | [quanted/tomcat](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-tomcat) | ![Docker Build Status](https://img.shields.io/docker/build/quanted/qed-tomcat.svg?style=plastic) |
+| qed-nginx-deployment.yml | [quanted/qed_nginx](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed_nginx) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed_nginx.svg) |
+| qed-django-deployment.yml | [quanted/qed-django](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-django) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-django.svg) |
+| qed-flask-deployment.yml | [quanted/flask_qed](https://cloud.docker.com/u/quanted/repository/docker/quanted/flask_qed) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/flask_qed.svg) |
+| qed-celery-deployment.yml | [quanted/flask_qed](https://cloud.docker.com/u/quanted/repository/docker/quanted/flask_qed) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/flask_qed.svg) |
+| cts-nodejs-deployment.yml | [quanted/cts_nodejs](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_nodejs) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_nodejs.svg) |
+| cts-celery-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_celery.svg) |
+| cts-worker-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_celery.svg) |
+| qed-redis-deployment.yml | [quanted/redis](https://cloud.docker.com/u/quanted/repository/docker/quanted/redis) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/redis.svg) |
+| qed-mongodb-deployment.yml | [quanted/mongo](https://cloud.docker.com/u/quanted/repository/docker/quanted/mongo) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/mongo.svg) |
+| hms-dotnetcore-deployment.yml | [quanted/hms-dotnetcore](https://cloud.docker.com/u/quanted/repository/docker/quanted/hms-dotnetcore) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/hms-dotnetcore.svg) |
+| qed-dask-scheduler-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
+| qed-dask-worker-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
+| qed-tomcat-deployment.yml | [quanted/tomcat](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-tomcat) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-tomcat.svg) |
 | qed-postgresql-deployment.yml | TBA | TBA |
