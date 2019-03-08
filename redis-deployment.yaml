@@ -12,7 +12,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: quanted/redis:latest
+      - image: quanted/redis
         name: redis
         resources: {}
       hostname: redis
