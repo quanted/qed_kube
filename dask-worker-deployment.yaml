@@ -19,7 +19,7 @@ spec:
           value: "True"
         - name: PYTHONPATH
           value: /src:/src/qed
-        image: quanted/dask-worker
+        image: quanted/qed-dask
         name: dask-worker
         volumeMounts:
         - mountPath: /src/qed

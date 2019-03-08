@@ -30,6 +30,6 @@ spec:
           value: $(HOSTNAME)
         - name: REDIS_HOSTNAME
           value: redis
-        image: quanted/cts-celery
+        image: quanted/cts_celery
         name: worker-cts
       restartPolicy: Always

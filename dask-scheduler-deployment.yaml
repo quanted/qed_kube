@@ -14,7 +14,7 @@ spec:
       containers:
       - args:
         - dask-scheduler
-        image: quanted/daskdev-dask
+        image: quanted/qed-dask
         name: dask-scheduler
       hostname: dask-scheduler
       restartPolicy: Always
