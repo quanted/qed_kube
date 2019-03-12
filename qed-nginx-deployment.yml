@@ -28,5 +28,5 @@ spec:
         name: qed-nginx-certs
       volumes:
       - hostPath:
-          path: ./data/nginx_certs
+          path: ./data/nginx-certs
         name: qed-nginx-certs
