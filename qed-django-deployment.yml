@@ -3,36 +3,50 @@ kind: Deployment
 metadata:
   name: qed-django-deployment
   labels:
-    app: qed-django-deployment
+    app: qed-django
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: qed-django
     spec:
       containers:
-        name: django
+      - name: qed-django
         image: quanted/qed-django
+        ports:
+          - containerPort: 8080
         env:
         - name: REDIS_HOSTNAME
           value: redis
         - name: DOCKER_HOSTNAME
-          value: $(HOSTNAME)           
+          value: QED_DOCKER
         volumeMounts:
-        - name: qed-templates
-          mountPath: /src/templates_qed
-        - name: qed-static
-          mountPath: /src/static_qed
-        - name: django-pVolume
-          mountPath: /src/django_pVolume
+          - mountPath: /src/templates_qed
+            name: qed-templates
+          - mountPath: /src/static_qed
+            name: qed-static
+          - mountPath: /src/secrets
+            name: django-secrets
+          - mountPath: /src/django_pvolume
+            name: django-pvolume
+      restartPolicy: Always
       volumes:
-      - hostPath:
-          path: ./templates_qed
-        name: qed-templates
-      - hostPath:
-          path: ./static_qed
-        name: qed-static
-      - name: django-pVolume
+      - name: qed-templates
+        hostPath:
+          path: /Users/dsmith/Documents/git/qed_kube/templates_qed
+          type: Directory
+      - name: qed-static
+        hostPath:
+          path: /Users/dsmith/Documents/git/qed_kube/static_qed
+          type: Directory
+      - name: django-secrets
+        hostPath:
+          path: /Users/dsmith/Documents/git/qed_kube/data/django-secrets
+          type: Directory
+      - name: django-pvolume
         persistentVolumeClaim:
-          claimName: qed-django-pVolume-claim1
+          claimName: qed-django-pvolume-claim1
+

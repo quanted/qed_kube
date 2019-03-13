@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qed-nginx
+  name: qed-nginx-deployment
   labels:
     app: qed-nginx
 spec:
@@ -18,15 +18,17 @@ spec:
     spec:
       containers:
       - name: qed-nginx
-        image: quanted/qed_nginx:latest
+        image: quanted/qed_nginx:dev_kube
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 80
+          - containerPort: 443
+        volumeMounts:
+          - mountPath: /etc/nginx/qed
+            name: qed-nginx-certs
       restartPolicy: Always
-      ports:
-      - containerPort: 80
-      - containerPort: 443
-      volumeMounts:
-      - mountPath: /etc/nginx/qed
-        name: qed-nginx-certs
       volumes:
-      - hostPath:
-          path: ./data/nginx-certs
-        name: qed-nginx-certs
+        - name: qed-nginx-certs
+          hostPath:
+            path: /Users/dsmith/Documents/git/qed_kube/data/nginx-certs
+            type: Directory
