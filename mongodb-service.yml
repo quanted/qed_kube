@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: qed-django
+  name: mongodb
 spec:
   selector:
-    app: qed-django
+    app: mongodb
   ports:
   - protocol:
-    port: 8080
-    targetPort: 8080
+    port: 27017
+    targetPort: 27017

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  serviceName: "mongodb"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: quanted/mongo
+        name: mongodb
+        ports:
+          - containerPort: 27017
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodb-pvolume
+      volumes:
+      - name: mongodb-pvolume
+        persistentVolumeClaim:
+          claimName: mongodb-pvolume-claim1

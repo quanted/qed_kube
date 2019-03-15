@@ -2,14 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: cts-worker
-  name: cts-worker
+    app: cts-manager
+  name: cts-manager
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: cts-worker
+        app: cts-manager
     spec:
       containers:
       - args:
@@ -18,18 +18,18 @@ spec:
         - -A
         - tasks
         - -Q
-        - cts_queue
+        - manager_queue
         - -l
         - info
         - -n
-        - cts_worker
+        - manager_worker
         - -c
-        - "2"
+        - "1"
         env:
         - name: DOCKER_HOSTNAME
-          value: $(HOSTNAME)
+          value: QED_KUBERNETES
         - name: REDIS_HOSTNAME
           value: redis
-        image: quanted/cts_celery
-        name: worker-cts
+        image: quanted/cts_celery:dev
+        name: worker-manager
       restartPolicy: Always

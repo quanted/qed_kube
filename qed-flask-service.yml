@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: qed-django
+  name: qed-flask
 spec:
   selector:
-    app: qed-django
+    app: qed-flask
   ports:
   - protocol:
-    port: 8080
-    targetPort: 8080
+    port: 7777
+    targetPort: 7777

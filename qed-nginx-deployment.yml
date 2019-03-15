@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qed-nginx-deployment
+  name: qed-nginx
   labels:
     app: qed-nginx
 spec:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodb-pVolume-claim1
+  name: mongodb-pvolume-claim1
 spec:
   storageClassName: mongodb-pv1
   accessModes:
