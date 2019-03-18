@@ -26,9 +26,15 @@ spec:
         volumeMounts:
           - mountPath: /etc/nginx/qed
             name: qed-nginx-certs
+          - mountPath: /src/static
+            name: qed-static
       restartPolicy: Always
       volumes:
         - name: qed-nginx-certs
           hostPath:
             path: /Users/dsmith/Documents/git/qed_kube/data/nginx-certs
+            type: Directory
+        - name: qed-static
+          hostPath:
+            path: /Users/dsmith/Documents/git/qed_kube/static_qed
             type: Directory
