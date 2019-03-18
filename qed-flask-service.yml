@@ -6,6 +6,6 @@ spec:
   selector:
     app: qed-flask
   ports:
-  - protocol:
-    port: 7777
+  - protocol: TCP
+    port: 80
     targetPort: 7777
