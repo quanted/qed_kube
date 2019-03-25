@@ -1,6 +1,0 @@
-.git
-.gitignore
-node_modules
-*.cxl
-*/*/*/*/bin/Preprocessed*
-*/*/*/*/bin/Results*
