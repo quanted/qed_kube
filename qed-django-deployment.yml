@@ -25,6 +25,8 @@ spec:
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
         volumeMounts:
+          - mountPath: /src/temp_configs
+            name: temp-configs
           - mountPath: /src/templates_qed
             name: qed-templates
           - mountPath: /src/static_qed
@@ -35,6 +37,10 @@ spec:
             name: django-pvolume
       restartPolicy: Always
       volumes:
+      - name: temp-configs
+        hostPath:
+          - path: /Users/dsmith/Documents/git/qed_kube/temp_configs
+            type: Directory
       - name: qed-templates
         hostPath:
           path: /Users/dsmith/Documents/git/qed_kube/templates_qed
