@@ -19,3 +19,9 @@
 [submodule "hms"]
 	path = hms
 	url = https://github.com/quanted/hms.git
+[submodule "qed_django"]
+	path = qed_django
+	url = https://github.com/dbsmith88/qed_django.git
+[submodule "temp_config"]
+	path = temp_config
+	url = https://github.com/quanted/temp_config.git
