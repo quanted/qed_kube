@@ -25,6 +25,8 @@ spec:
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
         volumeMounts:
+          - mountPath: /src/collected-static
+            name: collected-static
           - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
             name: sam-preprocessed
           - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
@@ -35,6 +37,10 @@ spec:
             name: flask-pvolume
       restartPolicy: Always
       volumes:
+      - name: collected-static
+        hostPath:
+          - path: /Users/dsmith/Documents/git/qed_kube/collected_static
+            type: Directory
       - name: sam-preprocessed
         hostPath:
           path: /Users/dsmith/Documents/git/qed_kube/data/sam-preprocessed
