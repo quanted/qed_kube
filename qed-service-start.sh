@@ -9,7 +9,6 @@ kubectl create -f mongodb-service.yml
 kubectl create -f cts-nodejs-service.yml
 
 # FLASK/CELERY
-kubectl create -f qed-celery-service.yml
 kubectl create -f qed-flask-service.yml
 
 # HMS

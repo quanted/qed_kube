@@ -39,8 +39,8 @@ spec:
       volumes:
       - name: collected-static
         hostPath:
-          - path: /Users/dsmith/Documents/git/qed_kube/collected_static
-            type: Directory
+          path: /Users/dsmith/Documents/git/qed_kube/data/collected-static
+          type: Directory
       - name: sam-preprocessed
         hostPath:
           path: /Users/dsmith/Documents/git/qed_kube/data/sam-preprocessed

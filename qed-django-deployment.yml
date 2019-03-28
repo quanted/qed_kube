@@ -27,8 +27,8 @@ spec:
         volumeMounts:
           - mountPath: /src/collected_static
             name: collected-static
-          - mountPath: /src/temp_configs
-            name: temp-configs
+          - mountPath: /src/temp_config
+            name: temp-config
           - mountPath: /src/templates_qed
             name: qed-templates
           - mountPath: /src/static_qed
@@ -41,12 +41,12 @@ spec:
       volumes:
       - name: collected-static
         hostPath:
-          - path: /Users/dsmith/Documents/git/qed_kube/collected_static
-            type: Directory
-      - name: temp-configs
+          path: /Users/dsmith/Documents/git/qed_kube/data/collected-static
+          type: Directory
+      - name: temp-config
         hostPath:
-          - path: /Users/dsmith/Documents/git/qed_kube/temp_configs
-            type: Directory
+          path: /Users/dsmith/Documents/git/qed_kube/temp_config
+          type: Directory
       - name: qed-templates
         hostPath:
           path: /Users/dsmith/Documents/git/qed_kube/templates_qed
