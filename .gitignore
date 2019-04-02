@@ -111,3 +111,6 @@ secret_key_database.txt
 # keys and crts
 *.key
 *.crt
+
+# collected_static
+data/collected-static/*
