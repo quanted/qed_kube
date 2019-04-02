@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: qed-flask
-        image: quanted/flask_qed:dev
+        image: quanted/flask_qed:dev_kube
         imagePullPolicy: "Always"
         ports:
           - containerPort: 8080

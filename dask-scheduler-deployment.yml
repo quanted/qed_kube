@@ -6,15 +6,19 @@ metadata:
   name: dask-scheduler
 spec:
   replicas: 1
-  strategy: {}
   template:
     metadata:
-      app: dask-scheduler
+      labels:
+        app: dask-scheduler
     spec:
       containers:
       - args:
         - dask-scheduler
         image: quanted/qed-dask
         name: dask-scheduler
+        # command: ["dask-scheduler"]
+        ports:
+          - containerPort: 8786
+          - containerPort: 8787
       hostname: dask-scheduler
       restartPolicy: Always

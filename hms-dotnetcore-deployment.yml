@@ -16,7 +16,10 @@ spec:
       containers:
       - image: quanted/hms-dotnetcore
         name: hms-dotnetcore
-        imagePullPolicy: "Always"
+        imagePullPolicy: "Always"'
+        env:
+          - name: FLASK_SERBER
+            value: http:\\qed-nginx:7777
         volumeMounts:
         - mountPath: /app/App_Data
           name: hms-dotnetcore-appdata

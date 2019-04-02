@@ -21,12 +21,13 @@ spec:
           value: /src:/src/qed
         image: quanted/qed-dask
         name: dask-worker
+        command: ["dask-worker", "dask-scheduler:8786"]
         volumeMounts:
-        - mountPath: /src/qed
+        - mountPath: /src
           name: dask-worker-src
       hostname: dask-worker
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: ./flask_qed
+          path: /Users/dsmith/Documents/git/qed_kube/qed_django
         name: dask-worker-src

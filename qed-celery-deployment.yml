@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: qed-celery
-        image: quanted/flask_qed:dev
+        image: quanted/flask_qed:dev_kube
         imagePullPolicy: "Always"
         command:
         - celery
@@ -24,22 +24,20 @@ spec:
         - "celery_cgi"
         - "-Q"
         - "qed"
-        - "--loglevel=INFO"
-        - "-c"
-        - "2"
+        - "--loglevel=DEBUG"
         - "-n"
-        - "qed_worker"
+        - "qed-worker"
         env:
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
         - name: REDIS_HOSTNAME
           value: redis
         volumeMounts:
-        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
+        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
           name: sam-preprocessed
-        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
+        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Results
           name: sam-results
-        - mountPath: /src/hms-flask/data/qed-basins
+        - mountPath: /src/hms_flask/data/qed-basins
           name: qed-basins
         - mountPath: /src/pvolume
           name: celery-pvolume
