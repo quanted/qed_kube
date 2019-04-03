@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cts-nodejs
+spec:
+  selector:
+    app: cts-nodejs
+  ports:
+  - protocol:
+    port: 4000
+    targetPort: 4000

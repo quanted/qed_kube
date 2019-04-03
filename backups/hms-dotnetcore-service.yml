@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hms-dotnetcore
+spec:
+  selector:
+    app: hms-dotnetcore
+  ports:
+  - protocol:
+    port: 80
+    targetPort: 80

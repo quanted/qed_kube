@@ -29,9 +29,9 @@ spec:
       volumes:
       - name: hms-dotnetcore-appdata
         hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/hms/Web.Services/App_Data
+          path: {{PWD}}/hms/Web.Services/App_Data
           type: Directory
       - name: hms-databases
         hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/hms-databases
+          path: {{PWD}}/data/hms-databases
           type: Directory

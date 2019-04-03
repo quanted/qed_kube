@@ -32,9 +32,9 @@ spec:
       volumes:
         - name: qed-nginx-certs
           hostPath:
-            path: /Users/dsmith/Documents/git/qed_kube/data/nginx-certs
+            path: {{PWD}}/data/nginx-certs
             type: Directory
         - name: qed-static
           hostPath:
-            path: /Users/dsmith/Documents/git/qed_kube/static_qed
+            path: {{PWD}}/static_qed
             type: Directory

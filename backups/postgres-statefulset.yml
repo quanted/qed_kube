@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: "postgres"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - image: mdillon/postgis
+        name: postgres
+        ports:
+          - containerPort: 5432
+#        volumeMounts:
+#        - mountPath: /docker-entrypoint-initdb.d
+#          name: postgres-pvolume
+#      volumes:
+#      - name: postgres-pvolume
+#        persistentVolumeClaim:
+#          claimName: postgres-pvolume-claim1

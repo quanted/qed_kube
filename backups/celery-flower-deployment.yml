@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: celery-flower
+  labels:
+    app: celery-flower
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: celery-flower
+    spec:
+      containers:
+      - name: celery-flower
+        image: mher/flower
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 5555
+        command: ["celery", "flower", "--broker=redis://redis:6379", "--url-prefix=flower"]
+        volumeMounts:
+        - mountPath: /src
+          name: celery-src
+      restartPolicy: Always
+      volumes:
+        - hostPath:
+            path: {{PWD}}/flask_qed
+          name: celery-src

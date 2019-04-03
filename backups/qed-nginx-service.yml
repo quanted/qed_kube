@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: qed-nginx
+spec:
+  selector:
+    app: qed-nginx
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 443
+    - name: flask
+      port: 7777
+      targetPort: 7777
+  type: NodePort

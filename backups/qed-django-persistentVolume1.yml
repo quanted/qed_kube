@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: django-pv1
   hostPath:
-    path: /Users/dsmith/Documents/git/qed_kube/data/pv-django
+    path: {{PWD}}/data/pv-django

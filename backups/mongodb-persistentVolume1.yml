@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: qed-django-pvolume
+  name: mongodb-pvolume
 spec:
   capacity:
     storage: 1Gi
@@ -9,6 +9,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
-  storageClassName: django-pv1
+  storageClassName: mongodb-pv1
   hostPath:
-    path: /Users/dsmith/Documents/git/qed_kube/data/pv-django
+    path: {{PWD}}/data/pv-mongodb

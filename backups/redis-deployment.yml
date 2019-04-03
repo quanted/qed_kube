@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: quanted/redis
+        name: redis
+        ports:
+          - containerPort: 6379
+        volumeMounts:
+          - mountPath: /etc/redis/database
+            name: redis-pvolume
+      restartPolicy: Always
+      volumes:
+      - name: redis-pvolume
+        persistentVolumeClaim:
+          claimName: redis-pvolume-claim1
+    

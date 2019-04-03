@@ -92,11 +92,12 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# QED settings
+# QED settings/secrets
+data/django-secrets/*
 secret_key_django_dropbox.txt
 secret_key_login.txt
 secret_key_database.txt
-
+data/tomcat-secrets/*
 
 # DB stuff
 *.sqlite3

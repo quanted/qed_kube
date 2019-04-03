@@ -6,6 +6,8 @@ kubectl create -f redis-persistentVolume1.yml
 kubectl create -f redis-persistentVolumeClaim1.yml
 kubectl create -f mongodb-persistentVolume1.yml
 kubectl create -f mongodb-persistentVolumeClaim1.yml
+kubectl create -f postgres-persistentVolume1.yml
+kubectl create -f postgres-persistentVolumeClaim1.yml
 
 # Celery
 kubectl create -f qed-celery-persistentVolume1.yml

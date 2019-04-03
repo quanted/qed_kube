@@ -45,15 +45,15 @@ spec:
       volumes:
       - name: sam-preprocessed
         hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/sam-preprocessed
+          path: {{PWD}}/data/sam-preprocessed
           type: Directory
       - name: sam-results
         hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/sam-results
+          path: {{PWD}}/data/sam-results
           type: Directory
       - name: qed-basins
         hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/qed-basins
+          path: {{PWD}}/data/qed-basins
           type: Directory
       - name: celery-pvolume
         persistentVolumeClaim:
