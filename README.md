@@ -53,9 +53,17 @@ The virtual machine name for minikube can also be changed from the default minik
 ```shell
 $ minikube start -p my-minikube
 ```
+In order to access deployments being hosted by minikube, the minikube VM IP is required. The minikube ip combined with the NodePort IP of the web server service allow access to the cluster deploy.
+```shell
+$ minikube ip
+```
+Viewing the minikube cluster dashboard
+```sheel
+$ minikube dashboard
+```
 
 ### Kompose
-
+(Not necessary for qed_kube)
 Kompose.io is a kubernetes product for converting a docker-compose file into yml files that can be consumed by kubectl or directly standing up the docker-compose orchestration as kubernetes. [Official github repo](https://www.google.com/url?q=https://github.com/kubernetes/kompose&sa=D&ust=1551987821382000).
 
 To convert a docker-compose.yml, simply provide the file as an argument to kompose
@@ -94,8 +102,41 @@ Note: Kompose only supports the major docker-compose versions (‘1.0’, ‘2.0
 
 ### Kubectl
 
+[Kuberctl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
-\[Kubernetes command line tool details to be added soon\]
+The kubernetes CLI provides all the commands to create kubernetes components and troubleshoot issues. Kubectl functions in a very similar way to docker-compose or docker, but does not build images. Below are the kuberctl commands most commonly used for managing a kubernetes deployment. The kubectl commands listed here are focused primarily on using .yml files, but it is possible to create a service, deployment, etc, directly from a kubectl command.
+
+When minikube is started, or a new minikube vm is created, the configuration and vm details are used to update the kubectl configuration. This allows the kubectl commands to utilize the minikube single node cluster. All kubectl commands provide help descriptions when the '--help' tag is provided.
+
+Once minikube is running, a kubernetes resource can be made from a .yml file by
+```shell
+$ kubectl create -f qed-django-deployment.yml
+```
+To delete a kubernetes resource
+```shell
+$ kubectl delete deploy qed-django
+```
+Where deploy can be a pod, service, deployment (deploy), statefulset (sts), persistentVolume (pv), persistentVolumeClaim (pvc), or any other valid kubernetes resource. A common tag is '--all' which can be used in place of the resource selector name, 'qed-django' in this case.
+View existing kubernetes resources
+```shell
+$ kubectl get pods
+```
+To see the configuration of an existing kubernetes resource, we can use the describe function
+```shell
+$ kubectl describe deploy qed-django
+```
+The configuration of a resource can be updated using the kubectl cli
+```shell
+$ kubectl scale --replicas=5 -f qed-django-deployment.yml 
+```
+To view the logs of a pod
+```shell
+$ kubectl logs qed-django
+```
+Enter pod
+```shell
+$ kubectl exec -it qed-django -- /bin/bash
+```
 
 ### QED Kubernetes
 
@@ -104,6 +145,27 @@ Kubernetes offers many different design patterns for orchestrating containers. F
 In terms of docker-compose, a Deployment can be used to specify a docker-compose service, it’s image and build context, desired quantity of containers (Pods). Containers that are accessed from an external process, or Deployment in this case, also require a Service, which specifies how the Deployment can be accessed, ports and target ports.
 
 With this in mind, the structure for QED in kubernetes could take several forms but the following setup is the design for current development.
+
+Notes:
+   *   Kubernetes supports multiple volume types, for single node deployment, development and testing, qed_kube currently uses hostPath. HostPath is only supported on a single node cluster. Deployment to azure or aws would require the hostPath types be changed to a volume service supported by the hosting provider. Kubernetes supports awsElasticBlockStore and AzureDisk volume types, which would be options to consider for deployments of those types.
+   *   The official mongodb image, which is the base image for the qed mongodb statefulset, does not support volume mounting from a MacOS or Windows machine. PersistentVolume hostpath for mongodb is currently commented out, but would be updated to an appropriate volume type depending on deploy.
+   *   Kubernetes volume hostPath requires absolute paths for the source path. The solution to allow for dynamic pathing is to execute set-absolute-path.sh prior to creating any of the resources. This script will copy all the .yml files from backups/ into / where the pwd path is used to update the hostPath sources.
+   *   Shell scripts have been provided to streamline deployment with minikube.
+       *   data-setup.sh (Incomplete)
+           *   To be used to download and structure all data for persistentVolumes and mounted volumes.
+       *   qed-deploy-start.sh 
+           *   Creates all deployments for qed
+       *   qed-service-start.sh
+           *   Creates all services for qed
+       *   qed-volume-start.sh
+           *   Creates all persistentVolumes and persistentVolumeClaims for qed
+       *   qed-start.sh
+           *   Executes set-absolute-path.sh, qed-volume-start.sh, qed-service-start.sh, qed-deploy-start.sh
+       *   qed-stop.sh
+           *   Deletes all kubernetes qed resources
+       *   set-absolute-path.sh
+           *   Updates volume hostPath source with PWD value
+     
 
 #### Kubernetes QED Files
 
