@@ -3,7 +3,7 @@ Local Kubernetes Development Guide
 
 ### Introduction
 
-This guide is to provide a means for setting up all the requirements for developing with kubernetes locally. Kubernetes is able to run in various different environments, zones, that each require a different setup and tools. For local development, we will be using a combination of tools that will simulate a deployed instance of kubernetes. Specifically, we will be using Minikube, VirtualBox, Docker, and Kompose.
+This guide is to provide a detailed description for setting up all the tools needed to start the developing with kubernetes locally. Kubernetes is able to run in various different environments, zones, that each require a slightly different configuration and tools. For local development, we will be using a combination of tools that will host a deployed instance of a single node kubernetes cluster. Specifically, we will be using Minikube, VirtualBox and Docker.
 
 Official Kubernetes Documentation: [here](https://www.google.com/url?q=https://kubernetes.io/docs&sa=D&ust=1551987821373000)
 
@@ -12,10 +12,11 @@ Official Kubernetes Documentation: [here](https://www.google.com/url?q=https://k
 *   Node - The worker machine, vm or physical machine
 *   Pod - Smallest deployable unit, a container, in our case a Docker container. For horizontal scaling, the best container design pattern is the “one-container-per-pod” model.
 *   Replica Set - Controls the currently available number of pods, should one fail the Replica Set will create another pod so that the specified number of pods is maintained.
-*   Deployment - The desired state of the Pod and Replica Set.
+*   Deployment - Manages Pods and sets a Replica Set.
 *   Service - Abstraction that defines a logical set of Pods and their access policies
 *   Storage Class - Allows for declaration of ‘classes’ of storage
 *   Persistent Volume Claim - Abstraction of the Storage Class and is used by a Pod to mount a Volume.
+*   Statefulset - Similar to a Deployment, but maintains state for using persistent storage 
 
 ### Requirements
 
@@ -27,10 +28,12 @@ Official Kubernetes Documentation: [here](https://www.google.com/url?q=https://k
 
 *   Minikube - [https://kubernetes.io/docs/tasks/tools/install-minikube/](https://www.google.com/url?q=https://kubernetes.io/docs/tasks/tools/install-minikube/&sa=D&ust=1551987821376000)
 
-*   We will be using VirtualBox, though minikube does support Hyper-V due to virtualization restrictions the steps completed below were done on a Mac with VirtualBox.
+*   We will be using VirtualBox, though minikube does support Hyper-V the steps completed below were done on a Mac with VirtualBox, due to virtualization restrictions.
 
-*   Kompose.io - [https://github.com/kubernetes/kompose](https://www.google.com/url?q=https://github.com/kubernetes/kompose&sa=D&ust=1551987821377000)
 *   VirtualBox - [https://www.virtualbox.org/](https://www.google.com/url?q=https://www.virtualbox.org/&sa=D&ust=1551987821377000)
+
+A useful tool for generating kubernete .yml files from a docker-compose file (but not required for this wiki):
+*   Kompose.io - [https://github.com/kubernetes/kompose](https://www.google.com/url?q=https://github.com/kubernetes/kompose&sa=D&ust=1551987821377000)
 
 ### Minikube
 
@@ -50,6 +53,7 @@ The virtual machine name for minikube can also be changed from the default minik
 ```shell
 $ minikube start -p my-minikube
 ```
+
 ### Kompose
 
 Kompose.io is a kubernetes product for converting a docker-compose file into yml files that can be consumed by kubectl or directly standing up the docker-compose orchestration as kubernetes. [Official github repo](https://www.google.com/url?q=https://github.com/kubernetes/kompose&sa=D&ust=1551987821382000).
@@ -90,78 +94,81 @@ Note: Kompose only supports the major docker-compose versions (‘1.0’, ‘2.0
 
 ### Kubectl
 
+
 \[Kubernetes command line tool details to be added soon\]
 
 ### QED Kubernetes
 
 Kubernetes offers many different design patterns for orchestrating containers. For simplicity and scalability, we will employ the single-container-per-pod design. What this means is that each docker container will be placed in it’s own Deployment. In kubernetes a Deployment describes a desired state where ReplicaSets and Pods are defined.
 
-In terms of docker-compose, a Deployment can be used to specify a docker-compose service, it’s image and build context, desired quantity of containers (Pods). Containers that are accessed from external processes also require a Service, which specifies how the Deployment can be accessed, external and internal ports.
+In terms of docker-compose, a Deployment can be used to specify a docker-compose service, it’s image and build context, desired quantity of containers (Pods). Containers that are accessed from an external process, or Deployment in this case, also require a Service, which specifies how the Deployment can be accessed, ports and target ports.
 
-With this in mind, the structure for QED in kubernetes could take several forms but the following is the design for current development.
+With this in mind, the structure for QED in kubernetes could take several forms but the following setup is the design for current development.
 
 #### Kubernetes QED Files
 
 *   Nginx
-    *   qed-nginx-service.yml (defines access using port 80 and 443)
+    *   qed-nginx-service.yml (defines access using port 80, 443, and 7777)
     *   qed-nginx-deployment.yml (defines container)
-        *   hostPath volume for certs
+        *   hostPath volume for certs and static files
 *   Django
+    *   qed-django-service.yml (defines access to port 8080)
     *   qed-django-deployment.yml (defines container)
-        *   hostPath volumes for static\_qed and templates\_qed
+        *   hostPath volumes for secrets, collected_static, temp_config, static_qed and templates_qed
     *   qed-django-persistentVolumeClaim.yml (for accessing persistent database files)
 *   Flask
+    *   qed-flask-service.yml (defines access to port 8080)
     *   qed-flask-deployment.yml (defines container)
-        *   hostPath volumes for sam and qed-basins data
+        *   hostPath volumes for collected_static, sam and qed-basins data
     *   qed-flask-persistentVolumeClaim.yml (for accessing persistent database files)
 *   Celery
     *   qed-celery-deployment.yml (defines container)
-        *   hostPath volumes for sam and qed-basins data
+        *   hostPath volumes for collected_static, sam and qed-basins data
     *   qed-celery-persistentVolumeClaim.yml (for accessing persistent database files)
-*   NodeJS
-    *   qed-nodesj-deployment.yml (defines container)
-*   CTS-Celery
-    *   qed-cts-celery-deployment.yml (defines container)
-*   CTS-Worker
-    *   qed-cts-worker-deployment.yml (defines container)
+*   Celery
+    *   celery-flower-service.yml (defines access to port 5555)
+    *   celery-flower-deployment.yml (defines container)
+*   CTS-NodeJS (Not tested)
+    *   cts-nodejs-service.yml (defines access to port 4000)
+    *   cts-nodesj-deployment.yml (defines container)
+*   CTS-Manager (Not tested)
+    *   cts-manager-deployment.yml (defines container)
+*   CTS-Worker (Not tested)
+    *   cts-worker-deployment.yml (defines container)
 *   Redis
-    *   qed-redis-deployment.yml (defines container)
-    *   qed-redis-persistentVolumeClaim.yml
+    *   redis-service.yml (defines access to port 6379)
+    *   redis-deployment.yml (defines container)
+    *   redis-persistentVolumeClaim.yml
 *   MongoDB
-    *   qed-mongodb-deployment.yml (defines container)
-    *   qed-mongodb-persistentVolumeClaim.yml
-*   Dotnetcore
+    *   mongodb-service.yml (defines access to port 27017)
+    *   mongodb-statefulset.yml (defines container)
+    *   mongodb-persistentVolumeClaim.yml
+*   HMS
+    *   hms-dotnetcore-service.yml (defines access to port 80)
     *   hms-dotnetcore-deployment.yml (defines container)
-        *   hostPath volume for App\_Data and database files
+        *   hostPath volume for App_Data and database files
 *   Dask-Scheduler
-    *   qed-dask-scheduler-deployment.yml (defines container)
+    *   dask-scheduler-service.yml (defines access to port 8786 and 8787)
+    *   dask-scheduler-deployment.yml (defines container)
 *   Dask-Worker
     *   qed-dask-worker-deployment.yml (defines container)
-        *   hostPath volume for /src/qed
-*   Tomcat
+        *   hostPath volume for qed
+*   Tomcat (not tested)
+    *   qed-tomcat-service.yml (defines access to port 80:8080)
     *   qed-tomcat-deployment.yml (defines container)
         *   hostPath volumes for secrets, license and webapp data
-    *   qed-tomcat-service.yml
-*   PostgreSQL
-    *   qed-postgresql-deployment.yml (defines container)
-    *   qed-postgresql-persistentVolumeClaim.yml
+*   Postgres
+    *   postgres-service.yml (defines access to port 5432)
+    *   postgres-statefulset.yml (defines container)
+    *   postgres-persistentVolumeClaim.yml
 *   Volumes
     *   qed-django-persistentVolume.yml (persistentVolume)
     *   qed-flask-persistentVolume.yml (persistentVolume)
     *   qed-celery-persistentVolume.yml (persistentVolume) 
-    *   qed-redis-persistentVolume.yml (persistentVolume)
-    *   qed-mongodb-persistentVolume.yml (persistentVolume)
-    *   qed-postgresql-persistentVolume.yml (persistentVolume)
+    *   redis-persistentVolume.yml (persistentVolume)
+    *   mongodb-persistentVolume.yml (persistentVolume)
+    *   postgres-persistentVolume.yml (persistentVolume)
 
-Summary:
-
-        14 Deployments
-
-        2 Services
-
-        6 PersistentVolumeClaims
-
-        6 PersistentVolumes
         
 #### Docker Builds
 | Deployment | Docker Image | Build Status |
@@ -173,10 +180,10 @@ Summary:
 | cts-nodejs-deployment.yml | [quanted/cts_nodejs](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_nodejs) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_nodejs.svg) |
 | cts-celery-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_celery.svg) |
 | cts-worker-deployment.yml | [quanted/cts_celery](https://cloud.docker.com/u/quanted/repository/docker/quanted/cts_celery) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/cts_celery.svg) |
-| qed-redis-deployment.yml | [quanted/redis](https://cloud.docker.com/u/quanted/repository/docker/quanted/redis) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/redis.svg) |
-| qed-mongodb-deployment.yml | [quanted/mongo](https://cloud.docker.com/u/quanted/repository/docker/quanted/mongo) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/mongo.svg) |
+| redis-deployment.yml | [quanted/redis](https://cloud.docker.com/u/quanted/repository/docker/quanted/redis) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/redis.svg) |
+| mongodb-deployment.yml | [quanted/mongo](https://cloud.docker.com/u/quanted/repository/docker/quanted/mongo) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/mongo.svg) |
 | hms-dotnetcore-deployment.yml | [quanted/hms-dotnetcore](https://cloud.docker.com/u/quanted/repository/docker/quanted/hms-dotnetcore) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/hms-dotnetcore.svg) |
-| qed-dask-scheduler-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
-| qed-dask-worker-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
+| dask-scheduler-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
+| dask-worker-deployment.yml | [quanted/qed-dask](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-dask.svg) |
 | qed-tomcat-deployment.yml | [quanted/tomcat](https://cloud.docker.com/u/quanted/repository/docker/quanted/qed-tomcat) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/quanted/qed-tomcat.svg) |
-| qed-postgresql-deployment.yml | TBA | TBA |
+| postgres-deployment.yml | [mdillon/postgis](https://hub.docker.com/r/mdillon/postgis) | ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/mdillon/postgis.svg) |
