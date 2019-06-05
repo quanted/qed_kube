@@ -14,14 +14,16 @@ spec:
         app: dask-worker
     spec:
       containers:
-      - env:
+      - command:
+        - dask-worker
+        - dask-scheduler:8786
+        env:
         - name: IN_DOCKER
-          value: "True"
+          value: 'True'
         - name: PYTHONPATH
           value: /src:/src/qed
         image: quanted/qed-dask
         name: dask-worker
-        command: ["dask-worker", "dask-scheduler:8786"]
         volumeMounts:
         - mountPath: /src
           name: dask-worker-src
@@ -29,5 +31,5 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/qed_django
+          path: C:\git\qed_kube\qed_django
         name: dask-worker-src

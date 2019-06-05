@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: mongodb-pv1
   hostPath:
-    path: {{PWD}}/data/pv-mongodb
+    path: data/pv-mongodb

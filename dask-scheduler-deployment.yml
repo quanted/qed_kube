@@ -17,7 +17,7 @@ spec:
         image: quanted/qed-dask
         name: dask-scheduler
         ports:
-          - containerPort: 8786
-          - containerPort: 8787
+        - containerPort: 8786
+        - containerPort: 8787
       hostname: dask-scheduler
       restartPolicy: Always

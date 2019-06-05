@@ -29,5 +29,5 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: {{PWD}}/qed_django
+          path: qed_django
         name: dask-worker-src

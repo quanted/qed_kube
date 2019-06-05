@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qed-nginx
   labels:
     app: qed-nginx
+  name: qed-nginx
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: qed-nginx
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: qed-nginx
     spec:
       containers:
-      - name: qed-nginx
-        image: quanted/qed_nginx:dev_kube
-        imagePullPolicy: "Always"
+      - image: quanted/qed_nginx:dev_kube
+        imagePullPolicy: Always
+        name: qed-nginx
         ports:
-          - containerPort: 80
-          - containerPort: 443
+        - containerPort: 80
+        - containerPort: 443
         volumeMounts:
-          - mountPath: /etc/nginx/qed
-            name: qed-nginx-certs
-          - mountPath: /src/static
-            name: qed-static
+        - mountPath: /etc/nginx/qed
+          name: qed-nginx-certs
+        - mountPath: /src/static
+          name: qed-static
       restartPolicy: Always
       volumes:
-        - name: qed-nginx-certs
-          hostPath:
-            path: /Users/dsmith/Documents/git/qed_kube/data/nginx-certs
-            type: Directory
-        - name: qed-static
-          hostPath:
-            path: /Users/dsmith/Documents/git/qed_kube/static_qed
-            type: Directory
+      - hostPath:
+          path: C:\git\qed_kube\data\nginx-certs
+          type: Directory
+        name: qed-nginx-certs
+      - hostPath:
+          path: C:\git\qed_kube\static_qed
+          type: Directory
+        name: qed-static

@@ -39,19 +39,19 @@ spec:
       volumes:
       - name: collected-static
         hostPath:
-          path: {{PWD}}/data/collected-static
+          path: data/collected-static
           type: Directory
       - name: sam-preprocessed
         hostPath:
-          path: {{PWD}}/data/sam-preprocessed
+          path: data/sam-preprocessed
           type: Directory
       - name: sam-results
         hostPath:
-          path: {{PWD}}/data/sam-results
+          path: data/sam-results
           type: Directory
       - name: qed-basins
         hostPath:
-          path: {{PWD}}/data/qed-basins
+          path: data/qed-basins
           type: Directory
       - name: flask-pvolume
         persistentVolumeClaim:

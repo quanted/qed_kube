@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: redis-pv1
   hostPath:
-    path: {{PWD}}/data/pv-redis
+    path: data/pv-redis

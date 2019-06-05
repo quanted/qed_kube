@@ -3,12 +3,12 @@ kind: PersistentVolume
 metadata:
   name: postgres-pvolume
 spec:
+  accessModes:
+  - ReadWriteOnce
   capacity:
     storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  hostPath:
+    path: C:\git\qed_kube\data\hms-databases
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: postgres-pv1
-  hostPath:
-    path: /Users/dsmith/Documents/git/qed_kube/data/pv-postgres
+  volumeMode: Filesystem

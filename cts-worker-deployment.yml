@@ -24,7 +24,7 @@ spec:
         - -n
         - cts_worker
         - -c
-        - "2"
+        - '2'
         env:
         - name: DOCKER_HOSTNAME
           value: QED_KUBERNETES

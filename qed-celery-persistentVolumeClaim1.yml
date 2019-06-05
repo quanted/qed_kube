@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: qed-celery-pvolume-claim1
 spec:
-  storageClassName: celery-pv1
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+  storageClassName: celery-pv1

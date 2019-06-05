@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: postgres-pv1
   hostPath:
-    path: {{PWD}}/data/pv-postgres
+    path: data/pv-postgres

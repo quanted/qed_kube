@@ -29,11 +29,11 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/tomcat-secrets/tomcat/tomcat-users.xml
+          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\tomcat-users.xml
         name: qed-tomcat-config
       - hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/tomcat-secrets/tomcat/webapps
+          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\webapps
         name: qed-tomcat-webapps
       - hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/tomcat-secrets/tomcat/chemaxon/licenses
+          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\chemaxon\licenses
         name: qed-tomcat-licenses

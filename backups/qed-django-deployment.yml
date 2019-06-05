@@ -41,23 +41,23 @@ spec:
       volumes:
       - name: collected-static
         hostPath:
-          path: {{PWD}}/data/collected-static
+          path: data/collected-static
           type: Directory
       - name: temp-config
         hostPath:
-          path: {{PWD}}/temp_config
+          path: temp_config
           type: Directory
       - name: qed-templates
         hostPath:
-          path: {{PWD}}/templates_qed
+          path: templates_qed
           type: Directory
       - name: qed-static
         hostPath:
-          path: {{PWD}}/static_qed
+          path: static_qed
           type: Directory
       - name: django-secrets
         hostPath:
-          path: {{PWD}}/data/django-secrets
+          path: data/django-secrets
           type: Directory
       - name: django-pvolume
         persistentVolumeClaim:

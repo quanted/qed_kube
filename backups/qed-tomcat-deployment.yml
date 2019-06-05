@@ -29,11 +29,11 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: {{PWD}}/data/tomcat-secrets/tomcat/tomcat-users.xml
+          path: data/tomcat-secrets/tomcat/tomcat-users.xml
         name: qed-tomcat-config
       - hostPath:
-          path: {{PWD}}/data/tomcat-secrets/tomcat/webapps
+          path: data/tomcat-secrets/tomcat/webapps
         name: qed-tomcat-webapps
       - hostPath:
-          path: {{PWD}}/data/tomcat-secrets/tomcat/chemaxon/licenses
+          path: data/tomcat-secrets/tomcat/chemaxon/licenses
         name: qed-tomcat-licenses

@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: celery-flower
   labels:
     app: celery-flower
+  name: celery-flower
 spec:
   replicas: 1
   strategy:
@@ -14,17 +14,21 @@ spec:
         app: celery-flower
     spec:
       containers:
-      - name: celery-flower
+      - command:
+        - celery
+        - flower
+        - --broker=redis://redis:6379
+        - --url-prefix=flower
         image: mher/flower
-        imagePullPolicy: "Always"
+        imagePullPolicy: Always
+        name: celery-flower
         ports:
-          - containerPort: 5555
-        command: ["celery", "flower", "--broker=redis://redis:6379", "--url-prefix=flower"]
+        - containerPort: 5555
         volumeMounts:
         - mountPath: /src
           name: celery-src
       restartPolicy: Always
       volumes:
-        - hostPath:
-            path: /Users/dsmith/Documents/git/qed_kube/flask_qed
-          name: celery-src
+      - hostPath:
+          path: C:\git\qed_kube\flask_qed
+        name: celery-src

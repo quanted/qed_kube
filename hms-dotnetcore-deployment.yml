@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hms-dotnetcore
   labels:
     app: hms-dotnetcore
+  name: hms-dotnetcore
 spec:
   replicas: 1
   strategy:
@@ -14,12 +14,12 @@ spec:
         app: hms-dotnetcore
     spec:
       containers:
-      - image: quanted/hms-dotnetcore
+      - env:
+        - name: FLASK_SERVER
+          value: http:\\qed-nginx:7777
+        image: quanted/hms-dotnetcore
+        imagePullPolicy: Always
         name: hms-dotnetcore
-        imagePullPolicy: "Always"
-        env:
-          - name: FLASK_SERBER
-            value: http:\\qed-nginx:7777
         volumeMounts:
         - mountPath: /app/App_Data
           name: hms-dotnetcore-appdata
@@ -27,11 +27,11 @@ spec:
           name: hms-databases
       restartPolicy: Always
       volumes:
-      - name: hms-dotnetcore-appdata
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/hms/Web.Services/App_Data
+      - hostPath:
+          path: C:\git\qed_kube\hms\Web.Services\App_Data
           type: Directory
-      - name: hms-databases
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/hms-databases
+        name: hms-dotnetcore-appdata
+      - hostPath:
+          path: C:\git\qed_kube\data\hms-databases
           type: Directory
+        name: hms-databases

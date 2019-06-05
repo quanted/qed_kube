@@ -3,12 +3,12 @@ kind: PersistentVolume
 metadata:
   name: qed-django-pvolume
 spec:
+  accessModes:
+  - ReadWriteOnce
   capacity:
     storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  hostPath:
+    path: C:\git\qed_kube\data\django-secrets
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: django-pv1
-  hostPath:
-    path: /Users/dsmith/Documents/git/qed_kube/data/pv-django
+  volumeMode: Filesystem

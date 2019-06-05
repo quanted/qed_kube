@@ -3,12 +3,12 @@ kind: PersistentVolume
 metadata:
   name: qed-celery-pvolume
 spec:
+  accessModes:
+  - ReadWriteOnce
   capacity:
     storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  hostPath:
+    path: C:\git\qed_kube\data\qed-basins
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: celery-pv1
-  hostPath:
-    path: /Users/dsmith/Documents/git/qed_kube/data/pv-celery
+  volumeMode: Filesystem

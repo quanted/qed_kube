@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: celery-pv1
   hostPath:
-    path: {{PWD}}/data/pv-celery
+    path: data/pv-celery

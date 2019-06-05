@@ -18,7 +18,7 @@ spec:
         name: hms-dotnetcore
         imagePullPolicy: "Always"
         env:
-          - name: FLASK_SERBER
+          - name: FLASK_SERVER
             value: http:\\qed-nginx:7777
         volumeMounts:
         - mountPath: /app/App_Data
@@ -29,9 +29,9 @@ spec:
       volumes:
       - name: hms-dotnetcore-appdata
         hostPath:
-          path: {{PWD}}/hms/Web.Services/App_Data
+          path: hms/Web.Services/App_Data
           type: Directory
       - name: hms-databases
         hostPath:
-          path: {{PWD}}/data/hms-databases
+          path: data/hms-databases
           type: Directory

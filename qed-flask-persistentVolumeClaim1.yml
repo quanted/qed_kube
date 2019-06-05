@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: qed-flask-pvolume-claim1
 spec:
-  storageClassName: flask-pv1
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+  storageClassName: flask-pv1

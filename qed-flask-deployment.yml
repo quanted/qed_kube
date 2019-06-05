@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: qed-flask
   labels:
     app: qed-flask
+  name: qed-flask
 spec:
   replicas: 1
   strategy:
@@ -14,45 +14,45 @@ spec:
         app: qed-flask
     spec:
       containers:
-      - name: qed-flask
-        image: quanted/flask_qed:dev_kube
-        imagePullPolicy: "Always"
-        ports:
-          - containerPort: 8080
-        env:
+      - env:
         - name: REDIS_HOSTNAME
           value: redis
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
+        image: quanted/flask_qed:dev_kube
+        imagePullPolicy: Always
+        name: qed-flask
+        ports:
+        - containerPort: 8080
         volumeMounts:
-          - mountPath: /src/collected-static
-            name: collected-static
-          - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
-            name: sam-preprocessed
-          - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
-            name: sam-results
-          - mountPath: /src/hms-flask/data/qed-basins
-            name: qed-basins
-          - mountPath: /src/pvolume
-            name: flask-pvolume
+        - mountPath: /src/collected-static
+          name: collected-static
+        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
+          name: sam-preprocessed
+        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
+          name: sam-results
+        - mountPath: /src/hms-flask/data/qed-basins
+          name: qed-basins
+        - mountPath: /src/pvolume
+          name: flask-pvolume
       restartPolicy: Always
       volumes:
-      - name: collected-static
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/collected-static
+      - hostPath:
+          path: C:\git\qed_kube\data\collected-static
           type: Directory
-      - name: sam-preprocessed
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/sam-preprocessed
+        name: collected-static
+      - hostPath:
+          path: C:\git\qed_kube\data\sam-preprocessed
           type: Directory
-      - name: sam-results
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/sam-results
+        name: sam-preprocessed
+      - hostPath:
+          path: C:\git\qed_kube\data\sam-results
           type: Directory
-      - name: qed-basins
-        hostPath:
-          path: /Users/dsmith/Documents/git/qed_kube/data/qed-basins
+        name: sam-results
+      - hostPath:
+          path: C:\git\qed_kube\data\qed-basins
           type: Directory
+        name: qed-basins
       - name: flask-pvolume
         persistentVolumeClaim:
           claimName: qed-flask-pvolume-claim1

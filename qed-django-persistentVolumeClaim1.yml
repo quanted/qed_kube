@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: qed-django-pvolume-claim1
 spec:
-  storageClassName: django-pv1
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+  storageClassName: django-pv1

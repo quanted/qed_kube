@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: flask-pv1
   hostPath:
-    path: {{PWD}}/data/pv-flask
+    path: data/pv-flask

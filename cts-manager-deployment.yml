@@ -24,7 +24,7 @@ spec:
         - -n
         - manager_worker
         - -c
-        - "1"
+        - '1'
         env:
         - name: DOCKER_HOSTNAME
           value: QED_KUBERNETES

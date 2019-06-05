@@ -25,6 +25,6 @@ spec:
           name: celery-src
       restartPolicy: Always
       volumes:
-        - hostPath:
-            path: {{PWD}}/flask_qed
-          name: celery-src
+      - name: celery-src
+        hostPath:
+          path: flask_qed
