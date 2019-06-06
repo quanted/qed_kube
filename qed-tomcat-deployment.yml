@@ -20,20 +20,10 @@ spec:
         image: quanted/qed-tomcat
         name: qed-tomcat
         volumeMounts:
-        - mountPath: /usr/local/tomcat/conf/tomcat-users.xml
+        - mountPath: /usr/local/tomcat/
           name: qed-tomcat-config
-        - mountPath: /usr/local/tomcat/webapps
-          name: qed-tomcat-webapps
-        - mountPath: /home/tomcat/.chemaxon/licenses
-          name: qed-tomcat-licenses
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\tomcat-users.xml
+          path: C:\git\qed_kube\data\tomcat-secrets
         name: qed-tomcat-config
-      - hostPath:
-          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\webapps
-        name: qed-tomcat-webapps
-      - hostPath:
-          path: C:\git\qed_kube\data\tomcat-secrets\tomcat\chemaxon\licenses
-        name: qed-tomcat-licenses

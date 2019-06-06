@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: C:\git\qed_kube\data\qed-basins
+    path: C:\git\qed_kube\data\pv-flask
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: flask-pv1
   volumeMode: Filesystem

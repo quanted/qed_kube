@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: C:\git\qed_kube\data\hms-databases
+    path: C:\git\qed_kube\data\pv-postgres
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: postgres-pv1
   volumeMode: Filesystem

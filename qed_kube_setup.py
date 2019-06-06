@@ -57,14 +57,23 @@ class KubeSetup:
                             for v in yml_file["spec"]["template"]["spec"]["volumes"]:
                                 if "hostPath" in v:
                                     yf = v["hostPath"]["path"]
-                                    yml_file["spec"]["template"]["spec"]["volumes"][i]["hostPath"]["path"] = os.path.abspath(os.path.join(self.pwd, yf))
+                                    yf_path = os.path.abspath(os.path.join(self.pwd, yf))
+                                    yml_file["spec"]["template"]["spec"]["volumes"][i]["hostPath"]["path"] = yf_path
+                                    self.check_dir(yf_path)
                                 i += 1
                     elif yml_file["kind"] == "PersistentVolume":
-                        yml_file["spec"]["hostPath"]["path"] = os.path.abspath(os.path.join(self.pwd, yf))
+                        yf = yml_file["spec"]["hostPath"]["path"]
+                        yf_path = os.path.abspath(os.path.join(self.pwd, yf))
+                        yml_file["spec"]["hostPath"]["path"] = yf_path
+                        self.check_dir(yf_path)
                 with open(f, "w") as y_file:
                     y_file.write(yaml.dump(yml_file, default_flow_style=False))
                 print("Updated file: {}".format(f))
         print("Volumes updated with correct paths")
+
+    def check_dir(self, path):
+        if not os.path.exists(path):
+            os.mkdir(path)
 
 
 def main(argv):

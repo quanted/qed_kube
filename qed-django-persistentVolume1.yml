@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: C:\git\qed_kube\data\django-secrets
+    path: C:\git\qed_kube\data\pv-django
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: django-pv1
   volumeMode: Filesystem
