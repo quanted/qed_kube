@@ -33,28 +33,17 @@ spec:
         imagePullPolicy: Always
         name: qed-celery
         volumeMounts:
-        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
-          name: sam-preprocessed
-        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Results
-          name: sam-results
+        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin
+          name: sam-bin
         - mountPath: /src/hms_flask/data/qed-basins
           name: qed-basins
-        - mountPath: /src/pvolume
-          name: celery-pvolume
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\sam-preprocessed
+          path: K:\qed_kube\data\sam-bin
           type: Directory
-        name: sam-preprocessed
+        name: sam-bin
       - hostPath:
-          path: C:\git\qed_kube\data\sam-results
-          type: Directory
-        name: sam-results
-      - hostPath:
-          path: C:\git\qed_kube\data\qed-basins
+          path: K:\qed_kube\data\qed-basins
           type: Directory
         name: qed-basins
-      - name: celery-pvolume
-        persistentVolumeClaim:
-          claimName: qed-celery-pvolume-claim1

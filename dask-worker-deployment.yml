@@ -26,10 +26,10 @@ spec:
         name: dask-worker
         volumeMounts:
         - mountPath: /src
-          name: dask-worker-src
+          name: qed-django
       hostname: dask-worker
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\qed_django
-        name: dask-worker-src
+          path: K:\qed_kube\qed_django
+        name: qed-django

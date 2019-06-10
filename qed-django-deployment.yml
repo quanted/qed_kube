@@ -40,25 +40,22 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\collected-static
+          path: K:\qed_kube\data\collected-static
           type: Directory
         name: collected-static
       - hostPath:
-          path: C:\git\qed_kube\temp_config
+          path: K:\qed_kube\temp_config
           type: Directory
         name: temp-config
       - hostPath:
-          path: C:\git\qed_kube\templates_qed
+          path: K:\qed_kube\templates_qed
           type: Directory
         name: qed-templates
       - hostPath:
-          path: C:\git\qed_kube\static_qed
+          path: K:\qed_kube\static_qed
           type: Directory
         name: qed-static
       - hostPath:
-          path: C:\git\qed_kube\data\django-secrets
+          path: K:\qed_kube\data\django-secrets
           type: Directory
         name: django-secrets
-      - name: django-pvolume
-        persistentVolumeClaim:
-          claimName: qed-django-pvolume-claim1

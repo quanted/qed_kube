@@ -4,6 +4,7 @@ import platform
 import getopt
 import shutil
 import yaml
+import json
 
 
 # if local, check os and set paths according to the os
@@ -18,12 +19,14 @@ class KubeSetup:
     def __init__(self, deploy):
         print("Starting qed_kube setup procedure...")
         self.deploy = deploy
+        self.pwd = os.getcwd()
         if self.deploy == "local":
-            self.pwd = os.getcwd()
             self.copy_files()
             self.volumes_setup()
         elif self.deploy == "aws":
             print("aws deploy setup not yet implemented.")
+            self.copy_files()
+            self.aws_setup()
         elif self.deploy == "azure":
             print("azure deploy setup not yet implemented.")
 
@@ -71,9 +74,53 @@ class KubeSetup:
                 print("Updated file: {}".format(f))
         print("Volumes updated with correct paths")
 
+    def aws_setup(self):
+        print("Using AWS setup configuration...")
+        print("Setting up qed_kube for {}".format(platform.system()))
+        print("Current working directory: {}".format(self.pwd))
+        config_file = "aws_ebs_volumes.json"
+        with open(config_file, 'r') as c:
+            aws_config = json.load(c)
+        dir_files = os.listdir(self.pwd)
+        for f in dir_files:
+            if "persistentVolume" in f or "deployment" in f or "statefulset" in f:
+                yml_file = None
+                with open(f, 'r') as stream:
+                    try:
+                        yml_file = yaml.safe_load(stream)
+                    except yaml.YAMLError as ymlerr:
+                        print(ymlerr)
+                    meta_name = yml_file["metadata"]["name"]
+                    if yml_file["kind"] == "Deployment":
+                        if "volumes" in yml_file["spec"]["template"]["spec"]:
+                            volumes = []
+                            for v in yml_file["spec"]["template"]["spec"]["volumes"]:
+                                volume = {}
+                                if "hostPath" in v:
+                                    v_name = v["name"]
+                                    volume["name"] = v_name
+                                    volume["awsElasticBlockStore"] = {"volumeID": aws_config[meta_name][v_name], "fsType": "ext4"}
+                                    volumes.append(volume)
+                            yml_file["spec"]["template"]["spec"]["volumes"] = volumes
+                    elif yml_file["kind"] == "PersistentVolume":
+                        del yml_file["spec"]["hostPath"]
+                        v_name = "volumeID"
+                        yml_file["spec"]["awsElasticBlockStore"] = {"volumeID": aws_config[meta_name][v_name], "fsType": "ext4"}
+                with open(f, "w") as y_file:
+                    y_file.write(yaml.dump(yml_file, default_flow_style=False))
+                print("Updated file: {}".format(f))
+        print("Volumes updated with correct paths")
+
     def check_dir(self, path):
         if not os.path.exists(path):
             os.mkdir(path)
+
+
+def show_help():
+    print('QED Kubernetes Setup Script')
+    print('Description: Updates the qed_kube deploy for the specified environment.')
+    print('Valid environments (deploys): "local", "aws", "azure')
+    print("Usage: python qed_kube_setup.py [-h | --help] [-d <deploy> | --deploy <deploy>]")
 
 
 def main(argv):
@@ -94,13 +141,6 @@ def main(argv):
             if i in valid_deploys:
                 KubeSetup(i)
     sys.exit(2)
-
-
-def show_help():
-    print('QED Kubernetes Setup Script')
-    print('Description: Updates the qed_kube deploy for the specified environment.')
-    print('Valid environments (deploys): "local", "aws", "azure')
-    print("Usage: python qed_kube_setup.py [-h | --help] [-d <deploy> | --deploy <deploy>]")
 
 
 if __name__ == "__main__":

@@ -33,28 +33,19 @@ spec:
         - name: REDIS_HOSTNAME
           value: redis
         volumeMounts:
-        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
-          name: sam-preprocessed
-        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin/Results
-          name: sam-results
+        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin
+          name: sam-bin
         - mountPath: /src/hms_flask/data/qed-basins
           name: qed-basins
-        - mountPath: /src/pvolume
-          name: celery-pvolume
+        #- mountPath: /src/pvolume
+        #  name: celery-pvolume
       restartPolicy: Always
       volumes:
-      - name: sam-preprocessed
+      - name: sam-bin
         hostPath:
-          path: data/sam-preprocessed
-          type: Directory
-      - name: sam-results
-        hostPath:
-          path: data/sam-results
+          path: data/sam-bin
           type: Directory
       - name: qed-basins
         hostPath:
           path: data/qed-basins
           type: Directory
-      - name: celery-pvolume
-        persistentVolumeClaim:
-          claimName: qed-celery-pvolume-claim1

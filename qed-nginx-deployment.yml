@@ -31,10 +31,10 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\nginx-certs
+          path: K:\qed_kube\data\nginx-certs
           type: Directory
         name: qed-nginx-certs
       - hostPath:
-          path: C:\git\qed_kube\static_qed
+          path: K:\qed_kube\static_qed
           type: Directory
         name: qed-static

@@ -26,9 +26,9 @@ spec:
         - containerPort: 5555
         volumeMounts:
         - mountPath: /src
-          name: celery-src
+          name: qed-flask
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\flask_qed
-        name: celery-src
+          path: K:\qed_kube\flask_qed
+        name: qed-flask
