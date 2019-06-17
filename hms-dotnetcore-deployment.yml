@@ -23,15 +23,9 @@ spec:
         volumeMounts:
         - mountPath: /app/App_Data
           name: hms-dotnetcore-appdata
-        - mountPath: /app/data
-          name: hms-databases
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\hms\Web.Services\App_Data
+          path: K:\qed_kube\hms\Web.Services\App_Data
           type: Directory
         name: hms-dotnetcore-appdata
-      - hostPath:
-          path: C:\git\qed_kube\data\hms-databases
-          type: Directory
-        name: hms-databases

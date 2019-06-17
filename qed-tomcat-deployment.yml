@@ -25,5 +25,5 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\tomcat-secrets
+          path: K:\qed_kube\data\tomcat-secrets
         name: qed-tomcat-config

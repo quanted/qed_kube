@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: C:\git\qed_kube\data\pv-redis
+    path: K:\qed_kube\data\pv-redis
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: redis-pv1
   volumeMode: Filesystem

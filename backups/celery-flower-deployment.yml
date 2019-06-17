@@ -22,9 +22,9 @@ spec:
         command: ["celery", "flower", "--broker=redis://redis:6379", "--url-prefix=flower"]
         volumeMounts:
         - mountPath: /src
-          name: celery-src
+          name: qed-flask
       restartPolicy: Always
       volumes:
-      - name: celery-src
+      - name: qed-flask
         hostPath:
           path: flask_qed

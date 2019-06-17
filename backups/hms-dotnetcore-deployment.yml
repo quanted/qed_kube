@@ -23,15 +23,9 @@ spec:
         volumeMounts:
         - mountPath: /app/App_Data
           name: hms-dotnetcore-appdata
-        - mountPath: /app/data
-          name: hms-databases
       restartPolicy: Always
       volumes:
       - name: hms-dotnetcore-appdata
         hostPath:
           path: hms/Web.Services/App_Data
-          type: Directory
-      - name: hms-databases
-        hostPath:
-          path: data/hms-databases
           type: Directory

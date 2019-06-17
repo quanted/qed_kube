@@ -27,10 +27,8 @@ spec:
         volumeMounts:
         - mountPath: /src/collected-static
           name: collected-static
-        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Preprocessed
-          name: sam-preprocessed
-        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin/Results
-          name: sam-results
+        - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin
+          name: sam-bin
         - mountPath: /src/hms-flask/data/qed-basins
           name: qed-basins
         - mountPath: /src/pvolume
@@ -38,21 +36,14 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\collected-static
+          path: K:\qed_kube\data\collected-static
           type: Directory
         name: collected-static
       - hostPath:
-          path: C:\git\qed_kube\data\sam-preprocessed
+          path: K:\qed_kube\data\sam-bin
           type: Directory
-        name: sam-preprocessed
+        name: sam-bin
       - hostPath:
-          path: C:\git\qed_kube\data\sam-results
-          type: Directory
-        name: sam-results
-      - hostPath:
-          path: C:\git\qed_kube\data\qed-basins
+          path: K:\qed_kube\data\qed-basins
           type: Directory
         name: qed-basins
-      - name: flask-pvolume
-        persistentVolumeClaim:
-          claimName: qed-flask-pvolume-claim1

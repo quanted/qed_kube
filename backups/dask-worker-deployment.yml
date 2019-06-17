@@ -24,10 +24,10 @@ spec:
         command: ["dask-worker", "dask-scheduler:8786"]
         volumeMounts:
         - mountPath: /src
-          name: dask-worker-src
+          name: qed-django
       hostname: dask-worker
       restartPolicy: Always
       volumes:
       - hostPath:
           path: qed_django
-        name: dask-worker-src
+        name: qed-django

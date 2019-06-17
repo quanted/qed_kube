@@ -59,7 +59,3 @@ spec:
         hostPath:
           path: data/django-secrets
           type: Directory
-      - name: django-pvolume
-        persistentVolumeClaim:
-          claimName: qed-django-pvolume-claim1
-
