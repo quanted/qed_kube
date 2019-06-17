@@ -5,7 +5,6 @@
 	},
 	"qed-django": {
 		"collected-static": "211",
-		"temp-config": "212",
 		"qed-templates": "213",
 		"qed-static": "214",
 		"django-secrets": "215"

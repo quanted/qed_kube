@@ -27,8 +27,6 @@ spec:
         volumeMounts:
           - mountPath: /src/collected_static
             name: collected-static
-          - mountPath: /src/temp_config
-            name: temp-config
           - mountPath: /src/templates_qed
             name: qed-templates
           - mountPath: /src/static_qed
@@ -42,10 +40,6 @@ spec:
       - name: collected-static
         hostPath:
           path: data/collected-static
-          type: Directory
-      - name: temp-config
-        hostPath:
-          path: temp_config
           type: Directory
       - name: qed-templates
         hostPath:
