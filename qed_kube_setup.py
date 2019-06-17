@@ -71,6 +71,10 @@ class KubeSetup:
                 print("Updated file: {}".format(f))
         print("Volumes updated with correct paths")
 
+    def aws_setup(self):
+        aws_conf =
+
+
     def check_dir(self, path):
         if not os.path.exists(path):
             os.mkdir(path)
