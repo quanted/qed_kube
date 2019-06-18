@@ -21,4 +21,5 @@
 	url = https://github.com/quanted/hms.git
 [submodule "qed_django"]
 	path = qed_django
-	url = https://github.com/dbsmith88/qed_django.git
+	url = https://github.com/quanted/qed_django.git
+	branch = dev
