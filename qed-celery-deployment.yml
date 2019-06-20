@@ -33,17 +33,11 @@ spec:
         imagePullPolicy: Always
         name: qed-celery
         volumeMounts:
-        - mountPath: /src/pram_flask/ubertool/ubertool/sam/bin
-          name: sam-bin
-        - mountPath: /src/hms_flask/data/qed-basins
-          name: qed-basins
+        - mountPath: /src/flask_bin
+          name: flask-bin
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: K:\qed_kube\data\sam-bin
+          path: C:\git\qed_kube\data\flask-bin
           type: Directory
-        name: sam-bin
-      - hostPath:
-          path: K:\qed_kube\data\qed-basins
-          type: Directory
-        name: qed-basins
+        name: flask-bin

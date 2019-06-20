@@ -11,7 +11,7 @@ kubectl create -f cts-nodejs-service.yml
 
 # FLASK
 kubectl create -f qed-flask-service.yml
-kubectl create -f celery-flower-service.yml
+# kubectl create -f celery-flower-service.yml
 
 # Dask
 kubectl create -f dask-scheduler-service.yml

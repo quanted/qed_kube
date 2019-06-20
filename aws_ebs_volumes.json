@@ -11,24 +11,16 @@
 	},
 	"qed-flask": {
 		"collected-static": "211",
-		"sam-bin": "311",
-		"qed-basins": "312"
+		"flask-bin": "311"
 	},
 	"qed-celery": {
-		"sam-bin": "311",
-		"qed-basins": "312"
+		"flask-bin": "311"
 	},
 	"hms-dotnetcore": {
 		"hms-dotnetcore-appdata": "411"
 	},
-	"celery-flower":{
-		"qed-flask": "511"
-	},
 	"dask-worker": {
 		"qed-django": "611"
-	},
-	"qed-tomcat": {
-		"qed-tomcat-config": "711"
 	},
 	"mongodb-pvolume": {
 		"volumeID": "911"

@@ -27,23 +27,16 @@ spec:
         volumeMounts:
           - mountPath: /src/collected-static
             name: collected-static
-          - mountPath: /src/pram-flask/ubertool/ubertool/sam/bin
-            name: sam-bin
-          - mountPath: /src/hms-flask/data/qed-basins
-            name: qed-basins
-          - mountPath: /src/pvolume
-            name: flask-pvolume
+          - mountPath: /src/flask-bin
+            name: flask-bin
       restartPolicy: Always
+      
       volumes:
       - name: collected-static
         hostPath:
           path: data/collected-static
           type: Directory
-      - name: sam-bin
+      - name: flask-bin
         hostPath:
-          path: data/sam-bin
-          type: Directory
-      - name: qed-basins
-        hostPath:
-          path: data/qed-basins
+          path: data/flask-bin
           type: Directory

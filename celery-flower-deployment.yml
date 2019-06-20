@@ -30,5 +30,5 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: K:\qed_kube\flask_qed
+          path: C:\git\qed_kube\flask_qed
         name: qed-flask

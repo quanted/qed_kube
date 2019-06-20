@@ -13,7 +13,7 @@ kubectl create -f cts-nodejs-deployment.yml
 
 # FLASK/CELERY
 kubectl create -f qed-celery-deployment.yml
-kubectl create -f celery-flower-deployment.yml
+# kubectl create -f celery-flower-deployment.yml
 kubectl create -f qed-flask-deployment.yml
 
 # HMS

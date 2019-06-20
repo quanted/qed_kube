@@ -26,6 +26,6 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: K:\qed_kube\hms\Web.Services\App_Data
+          path: C:\git\qed_kube\hms\Web.Services\App_Data
           type: Directory
         name: hms-dotnetcore-appdata

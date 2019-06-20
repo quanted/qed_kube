@@ -27,8 +27,6 @@ spec:
         volumeMounts:
         - mountPath: /src/collected_static
           name: collected-static
-        - mountPath: /src/temp_config
-          name: temp-config
         - mountPath: /src/templates_qed
           name: qed-templates
         - mountPath: /src/static_qed
@@ -40,22 +38,18 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: K:\qed_kube\data\collected-static
+          path: C:\git\qed_kube\data\collected-static
           type: Directory
         name: collected-static
       - hostPath:
-          path: K:\qed_kube\temp_config
-          type: Directory
-        name: temp-config
-      - hostPath:
-          path: K:\qed_kube\templates_qed
+          path: C:\git\qed_kube\templates_qed
           type: Directory
         name: qed-templates
       - hostPath:
-          path: K:\qed_kube\static_qed
+          path: C:\git\qed_kube\static_qed
           type: Directory
         name: qed-static
       - hostPath:
-          path: K:\qed_kube\data\django-secrets
+          path: C:\git\qed_kube\data\django-secrets
           type: Directory
         name: django-secrets

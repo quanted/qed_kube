@@ -31,5 +31,5 @@ spec:
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: K:\qed_kube\qed_django
+          path: C:\git\qed_kube\qed_django
         name: qed-django
