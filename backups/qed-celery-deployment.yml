@@ -33,11 +33,11 @@ spec:
         - name: REDIS_HOSTNAME
           value: redis
         volumeMounts:
-        - mountPath: /src/flask_bin
-          name: flask-bin
+        - mountPath: /src/app-data
+          name: app-data
       restartPolicy: Always
       volumes:
-      - name: flask-bin
+      - name: app-data
         hostPath:
-          path: data/flask-bin
+          path: data/app-data
           type: Directory

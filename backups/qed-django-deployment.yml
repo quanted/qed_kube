@@ -35,6 +35,8 @@ spec:
             name: django-secrets
           - mountPath: /src/django_pvolume
             name: django-pvolume
+          - mountPath: /src/app-data
+            name: app-data
       restartPolicy: Always
       volumes:
       - name: collected-static
@@ -52,4 +54,8 @@ spec:
       - name: django-secrets
         hostPath:
           path: data/django-secrets
+          type: Directory
+      - name: app-data
+        hostPath:
+          path: data/app-data
           type: Directory

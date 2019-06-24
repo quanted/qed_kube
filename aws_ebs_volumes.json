@@ -7,14 +7,15 @@
 		"collected-static": "211",
 		"qed-templates": "213",
 		"qed-static": "214",
-		"django-secrets": "215"
+		"django-secrets": "215",
+		"app-data":  "216"
 	},
 	"qed-flask": {
 		"collected-static": "211",
-		"flask-bin": "311"
+		"app-data": "216"
 	},
 	"qed-celery": {
-		"flask-bin": "311"
+		"app-data": "216"
 	},
 	"hms-dotnetcore": {
 		"hms-dotnetcore-appdata": "411"

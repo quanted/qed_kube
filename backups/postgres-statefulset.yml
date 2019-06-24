@@ -21,10 +21,10 @@ spec:
         name: postgres
         ports:
           - containerPort: 5432
-#        volumeMounts:
-#        - mountPath: /docker-entrypoint-initdb.d
-#          name: postgres-pvolume
-#      volumes:
-#      - name: postgres-pvolume
-#        persistentVolumeClaim:
-#          claimName: postgres-pvolume-claim1
+        volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d
+          name: postgres-pvolume
+      volumes:
+      - name: postgres-pvolume
+        persistentVolumeClaim:
+          claimName: postgres-pvolume-claim1

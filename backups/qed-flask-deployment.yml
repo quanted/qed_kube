@@ -27,16 +27,15 @@ spec:
         volumeMounts:
           - mountPath: /src/collected-static
             name: collected-static
-          - mountPath: /src/flask-bin
-            name: flask-bin
+          - mountPath: /src/app-data
+            name: app-data
       restartPolicy: Always
-      
       volumes:
       - name: collected-static
         hostPath:
           path: data/collected-static
           type: Directory
-      - name: flask-bin
+      - name: app-data
         hostPath:
-          path: data/flask-bin
+          path: data/app-data
           type: Directory
