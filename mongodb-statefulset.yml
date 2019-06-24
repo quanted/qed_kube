@@ -20,4 +20,11 @@ spec:
         name: mongodb
         ports:
         - containerPort: 27017
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodb-pvolume
       terminationGracePeriodSeconds: 10
+      volumes:
+      - name: mongodb-pvolume
+        persistentVolumeClaim:
+          claimName: mongodb-pvolume-claim1

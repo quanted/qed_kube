@@ -35,6 +35,8 @@ spec:
           name: django-secrets
         - mountPath: /src/django_pvolume
           name: django-pvolume
+        - mountPath: /src/app-data
+          name: app-data
       restartPolicy: Always
       volumes:
       - hostPath:
@@ -53,3 +55,7 @@ spec:
           path: C:\git\qed_kube\data\django-secrets
           type: Directory
         name: django-secrets
+      - hostPath:
+          path: C:\git\qed_kube\data\app-data
+          type: Directory
+        name: app-data

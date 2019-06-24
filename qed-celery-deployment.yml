@@ -33,11 +33,11 @@ spec:
         imagePullPolicy: Always
         name: qed-celery
         volumeMounts:
-        - mountPath: /src/flask_bin
-          name: flask-bin
+        - mountPath: /src/app-data
+          name: app-data
       restartPolicy: Always
       volumes:
       - hostPath:
-          path: C:\git\qed_kube\data\flask-bin
+          path: C:\git\qed_kube\data\app-data
           type: Directory
-        name: flask-bin
+        name: app-data

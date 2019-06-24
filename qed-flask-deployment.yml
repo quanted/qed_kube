@@ -27,8 +27,8 @@ spec:
         volumeMounts:
         - mountPath: /src/collected-static
           name: collected-static
-        - mountPath: /src/flask-bin
-          name: flask-bin
+        - mountPath: /src/app-data
+          name: app-data
       restartPolicy: Always
       volumes:
       - hostPath:
@@ -36,6 +36,6 @@ spec:
           type: Directory
         name: collected-static
       - hostPath:
-          path: C:\git\qed_kube\data\flask-bin
+          path: C:\git\qed_kube\data\app-data
           type: Directory
-        name: flask-bin
+        name: app-data
