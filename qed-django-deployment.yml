@@ -33,8 +33,6 @@ spec:
           name: qed-static
         - mountPath: /src/secrets
           name: django-secrets
-        - mountPath: /src/django_pvolume
-          name: django-pvolume
         - mountPath: /src/app-data
           name: app-data
       restartPolicy: Always

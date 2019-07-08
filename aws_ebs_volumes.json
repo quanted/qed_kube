@@ -6,7 +6,7 @@
 	"qed-django": {
 		"collected-static": "211",
 		"qed-templates": "213",
-		"qed-static": "214",
+		"qed-static": "112",
 		"django-secrets": "215",
 		"app-data":  "216"
 	},
