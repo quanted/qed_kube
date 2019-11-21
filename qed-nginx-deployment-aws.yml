@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: qed-nginx
+  name: qed-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qed-nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: qed-nginx
+    spec:
+      containers:
+      - image: quanted/qed_nginx:dev_kube
+        imagePullPolicy: Always
+        name: qed-nginx
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /etc/nginx/qed
+          name: qed-nginx-certs
+        - mountPath: /src/static
+          name: qed-static
+      restartPolicy: Always
+      volumes:
+      - name: qed-nginx-certs
+        persistentVolumeClaim:
+          claimName: qed-nginx-certs-pvolume-claim1
+      - name: qed-static
+        persistentVolumeClaim:
+          claimName: qed-static-pvolume-claim1

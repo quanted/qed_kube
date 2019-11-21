@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: qed-django
+  name: qed-django
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: qed-django
+    spec:
+      containers:
+      - env:
+        - name: REDIS_HOSTNAME
+          value: redis
+        - name: DOCKER_HOSTNAME
+          value: QED-KUBERNETES
+        image: quanted/qed-django
+        imagePullPolicy: Always
+        name: qed-django
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /src/collected_static
+          name: collected-static
+        - mountPath: /src/templates_qed
+          name: qed-templates
+        - mountPath: /src/static_qed
+          name: qed-static
+        - mountPath: /src/secrets
+          name: django-secrets
+        - mountPath: /src/app-data
+          name: app-data
+      restartPolicy: Always
+      volumes:
+      - name: collected-static
+        persistentVolumeClaim:
+          claimName: collected-static-pvolume-claim1
+      - name: qed-static
+        persistentVolumeClaim:
+          claimName: qed-static-pvolume-claim1
+      - name: django-secrets
+        persistentVolumeClaim:
+          claimName: django-secrets-pvolume-claim1
+      - name: qed-templates
+        persistentVolumeClaim:
+          claimName: qed-templates-pvolume-claim1
+      - name: app-data
+        persistentVolumeClaim:
+          claimName: app-data-pvolume-claim1

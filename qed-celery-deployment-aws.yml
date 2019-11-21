@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: qed-celery
+  name: qed-celery
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: qed-celery
+    spec:
+      containers:
+      - command:
+        - celery
+        - worker
+        - -A
+        - celery_cgi
+        - -Q
+        - qed
+        - --loglevel=DEBUG
+        - -n
+        - qed-worker
+        env:
+        - name: DOCKER_HOSTNAME
+          value: QED-KUBERNETES
+        - name: REDIS_HOSTNAME
+          value: redis
+        image: quanted/flask_qed:dev_kube
+        imagePullPolicy: Always
+        name: qed-celery
+        volumeMounts:
+        - mountPath: /src/app-data
+          name: app-data
+      restartPolicy: Always
+      volumes:
+        - name: app-data
+          persistentVolumeClaim:
+            claimName: app-data-pvolume-claim1
