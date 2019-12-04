@@ -1,0 +1,196 @@
+version: '3.7'
+
+volumes:
+  collected_static: {}
+  mongodata: {}
+#  sam_files:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: //c/git/qed_kube/data/app-data/sampreprocessed
+
+services:
+
+  # QED Django front-end
+  qed-django:
+    image: quanted/qed-django:gdal_update
+    expose:
+      - "8080"
+    volumes:
+      - collected_static:/src/collected_static
+      - ./templates_qed:/src/templates_qed
+      - ./static_qed:/src/static_qed
+      - ./data/django-secrets:/src/secrets
+    environment:
+      - IS_PUBLIC=False
+      - REDIS_HOSTNAME=redis
+      - DOCKER_HOSTNAME=KUBERNETES
+      - DJANGO_SETTINGS_MODULE=settings_kube
+      - SERVER_NAME=KUBERNETES
+      - PASSWORD_REQUIRED=True
+    depends_on:
+      - redis
+      - mongodb
+
+  # Redis (message broker)
+  redis:
+    image: quanted/redis:latest
+    hostname: redis
+    volumes:
+      - ./data/pv-redis:/data
+    expose:
+      - "6379"
+
+  # ubertool_cts nodejs submodule
+  cts-nodejs:
+    image: quanted/cts_nodejs
+    expose:
+      - "4000"
+    environment:
+      - NODEJS_HOST=cts_nodejs
+      - NODEJS_PORT=4000
+      - REDIS_HOSTNAME=redis
+      - REDIS_PORT=6379
+      - SERVER_NAME=KUBERNETES
+    depends_on:
+      - redis
+
+  # # Celery worker - manager calc
+  worker-manager:
+    image: quanted/cts_celery:${VERSION:-latest}
+    command: celery worker -A tasks -Q manager_queue -l info -n manager_worker -c 1
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTNAME=redis
+      - DOCKER_HOSTNAME=${HOSTNAME}
+      - SERVER_NAME=KUBERNETES
+
+  # # Celery worker - cts calc
+  worker-cts:
+    image: quanted/cts_celery:${VERSION:-latest}
+    command: celery worker -A tasks -Q cts_queue -l info -n cts_worker -c 2
+    depends_on:
+      - redis
+      - qed-django
+    environment:
+      - REDIS_HOSTNAME=redis
+      - DOCKER_HOSTNAME=${HOSTNAME}
+      - SERVER_NAME=KUBERNETES
+
+  qed-nginx:
+    restart: always
+    image: quanted/qed_nginx:dev_kube
+    ports:
+      - "8888:80"
+      - "8889:443"
+    depends_on:
+      - qed-django
+      - cts-nodejs
+      - qed-flask
+    volumes:
+      - ./data/nginx-certs/certs:/etc/nginx/qed
+      - ./templates_qed:/src/templates_qed
+      - ./static_qed:/src/static
+#      - collected_static:/src/collected_static
+#      - templates_qed:/src/templates_qed
+
+  # flask_qed Flask back-end
+  qed-flask:
+    image: quanted/flask_qed:gdal_update
+    expose:
+      - "7777"
+    depends_on:
+      - redis
+      - mongodb
+      - qed-celery
+    environment:
+      - REDIS_HOSTNAME=redis
+      - REDIS_PORT=redis://redis:6379
+      - DOCKER_HOSTNAME=KUBERNETES
+      - SERVER_NAME=KUBERNETES
+    volumes:
+      - ./data/app-data/sampreprocessed:/src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
+#      - sam_files:/src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
+      - collected_static:/src/collected_static
+    logging:
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  # mongoDB database container
+  mongodb:
+    image: quanted/mongo:latest
+    volumes:
+      - mongodata:/data/db
+#      - ./data/pv-mongodb:/data/db
+    expose:
+      - "27017"
+
+  # Celery container for async task execution
+  qed-celery:
+    image: quanted/flask_qed:gdal_update
+    volumes:
+      - ./data/app-data/sampreprocessed:/src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
+      #      - sam_files:/src/pram_flask/ubertool/ubertool/sam/bin/Preprocessed
+      - collected_static:/src/collected_static
+    depends_on:
+      - redis
+      - mongodb
+    command: celery worker -A celery_cgi -Q qed --loglevel=INFO -c 2 -n qed_worker
+    environment:
+      - REDIS_HOSTNAME=redis
+      - REDIS_PORT=redis://redis:6379
+      - DOCKER_HOSTNAME=KUBERNETES
+      - SERVER_NAME=KUBERNETES
+    logging:
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  hms-dotnetcore:
+    image: quanted/hms-dotnetcore
+    environment:
+      - MONGODB=mongodb
+      - FLASK_SERVER=qed-nginx:7777
+    expose:
+     - "80"
+    volumes:
+      - ./data/app-data/hms/App_Data:/app/App_Data
+
+  # Dask Containers  
+  dask-scheduler:
+    image: quanted/qed-dask
+    expose:
+     - "8786"
+     - "8787"
+    command: ["dask-scheduler"]
+
+  dask-worker:
+    image: quanted/qed-dask
+    environment:
+      SERVER_NAME: 'KUBERNETES'
+      PYTHONPATH: '/src:/src/qed'
+      IN_DOCKER: "True"
+    #command: ["dask-worker", "dask_scheduler:8786"]
+    volumes:
+       - ./qed_django:/src/qed"
+
+  # Apache Tomcat container
+#  qed-tomcat:
+#    image: quanted/qed-tomcat:${VERSION:-latest}
+#    expose:
+#      - "8080"
+#    environment:
+#      - JAVA_OPTS=-Xmx512m
+#    volumes:
+#      - ./data/tomcat-secrets/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+#      - ./data/tomcat-secrets/webapps:/usr/local/tomcat/webapps
+#      - ./data/tomcat-secrets/chemaxon/licenses:/home/tomcat/.chemaxon/licenses
+
+  pisces-db:
+    image: mdillon/postgis
+    expose:
+      - "5432"
+    volumes:
+      - ./data/pv-postgres:/docker-entrypoint-initdb.d
