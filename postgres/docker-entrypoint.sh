@@ -120,8 +120,8 @@ docker_verify_minimum_env() {
 
 docker_restore_files(){
   echo
-  local f
-  for f; do
+  FILES=/docker-entrypoint-initdb.d/sql/*
+  for f in $FILES; do
     case "$f" in
         *.sql)  echo "$0: running $f"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < "$f"; echo;;
         *)      echo "$0: ignoring $f" ;;
@@ -282,7 +282,7 @@ _main() {
 
 			docker_setup_db
 			docker_process_init_files /docker-entrypoint-initdb.d/*
-      docker_restore_files /docker-entrypoint-initdb.d/sql/*
+      docker_restore_files
 
 			docker_temp_server_stop
 			unset PGPASSWORD
