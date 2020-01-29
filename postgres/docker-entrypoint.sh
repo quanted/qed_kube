@@ -118,6 +118,18 @@ docker_verify_minimum_env() {
 	fi
 }
 
+docker_restore_files(){
+  echo
+  local f
+  for f; do
+    case "$f" in
+        *.sql)  echo "$0: running $f"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < "$f"; echo;;
+        *)      echo "$0: ignoring $f" ;;
+    esac
+    echo
+  done
+}
+
 # usage: docker_process_init_files [file [file [...]]]
 #    ie: docker_process_init_files /always-initdb.d/*
 # process initializer files, based on file extensions and permissions
@@ -270,7 +282,7 @@ _main() {
 
 			docker_setup_db
 			docker_process_init_files /docker-entrypoint-initdb.d/*
-      docker_process_init_files /docker-entrypoint-initdb.d/sql/*
+      docker_restore_files /docker-entrypoint-initdb.d/sql/*
 
 			docker_temp_server_stop
 			unset PGPASSWORD
