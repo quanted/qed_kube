@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+sleep 5
 set -Eeo pipefail
 # TODO swap to -Eeuo pipefail above (after handling all potentially-unset variables)
 
@@ -269,7 +270,7 @@ _main() {
 
 			docker_setup_db
 			docker_process_init_files /docker-entrypoint-initdb.d/*
-            docker_process_init_files /docker-entrypoint-initdb.d/sql/*
+      docker_process_init_files /docker-entrypoint-initdb.d/sql/*
 
 			docker_temp_server_stop
 			unset PGPASSWORD

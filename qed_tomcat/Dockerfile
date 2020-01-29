@@ -16,3 +16,5 @@ WORKDIR /home/tomcat
 
 # Sets default user as "tomcat"
 USER tomcat
+
+ENV PATH=/:$PATH
