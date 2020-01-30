@@ -117,7 +117,7 @@ docker_verify_minimum_env() {
 	fi
 }
 
-docker_restore_files(){
+docker_restore_file(){
   echo
   SQL_FILE=$PISCES_DB_FILE
   echo "$0: running $SQL_FILE"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < " $SQL_FILE"; echo
@@ -275,7 +275,6 @@ _main() {
 
 			docker_setup_db
 			docker_process_init_files /docker-entrypoint-initdb.d/*
-      docker_restore_files
 
 			docker_temp_server_stop
 			unset PGPASSWORD
@@ -291,6 +290,7 @@ _main() {
 	fi
 
 	exec "$@"
+	docker_restore_file
 }
 
 if ! _is_sourced; then
