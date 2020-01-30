@@ -117,12 +117,6 @@ docker_verify_minimum_env() {
 	fi
 }
 
-docker_restore_file(){
-  echo
-  SQL_FILE=$PISCES_DB_FILE
-  echo "$0: running $SQL_FILE"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < " $SQL_FILE"; echo
-}
-
 # usage: docker_process_init_files [file [file [...]]]
 #    ie: docker_process_init_files /always-initdb.d/*
 # process initializer files, based on file extensions and permissions
@@ -290,7 +284,6 @@ _main() {
 	fi
 
 	exec "$@"
-	docker_restore_file
 }
 
 if ! _is_sourced; then
