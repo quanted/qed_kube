@@ -269,6 +269,7 @@ _main() {
 
 			docker_setup_db
 			docker_process_init_files /docker-entrypoint-initdb.d/*
+			docker_process_init_files /docker-entrypoint-initdb.d/sql/*
 
 			docker_temp_server_stop
 			unset PGPASSWORD

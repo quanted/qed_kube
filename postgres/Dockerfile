@@ -7,8 +7,8 @@ RUN chmod +x /docker-entrypoint.sh
 
 ENV PATH=/:$PATH
 
-COPY postgres-startup.sh /postgres-startup.sh
-RUN chmod +x /postgres-startup.sh
-
-ENTRYPOINT ["postgres-startup.sh"]
-CMD ["postgres"]
+#COPY postgres-startup.sh /postgres-startup.sh
+#RUN chmod +x /postgres-startup.sh
+#
+#ENTRYPOINT ["postgres-startup.sh"]
+#CMD ["postgres"]
