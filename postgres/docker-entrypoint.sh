@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-sleep 5
 set -Eeo pipefail
 # TODO swap to -Eeuo pipefail above (after handling all potentially-unset variables)
 
@@ -120,14 +119,8 @@ docker_verify_minimum_env() {
 
 docker_restore_files(){
   echo
-  FILES=/docker-entrypoint-initdb.d/sql/*
-  for f in $FILES; do
-    case "$f" in
-        *.sql)  echo "$0: running $f"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < "$f"; echo;;
-        *)      echo "$0: ignoring $f" ;;
-    esac
-    echo
-  done
+  SQL_FILE=$PISCES_DB_FILE
+  echo "$0: running $SQL_FILE"; psql -U "$POSTGRES_USER" "$POSTGRES_DB" < " $SQL_FILE"; echo
 }
 
 # usage: docker_process_init_files [file [file [...]]]

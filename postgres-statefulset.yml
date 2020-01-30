@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-        - mountPath: /docker-entrypoint-initdb.d/sql
+        - mountPath: /docker-entrypoint-initdb.d/sql/
           name: postgres-pvolume
       terminationGracePeriodSeconds: 10
       volumes:
