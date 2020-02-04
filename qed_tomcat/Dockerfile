@@ -17,7 +17,8 @@ WORKDIR /home/tomcat
 # Sets default user as "tomcat"
 USER tomcat
 ENV PATH=/:$PATH
-ADD tomcat_startup.sh /tomcat_startup.sh
+COPY tomcat_startup.sh /tomcat_startup.sh
 RUN chown -R tomcat:tomcat /tomcat_startup.sh && chmod +x /tomcat_startup.sh
+RUN chown -R tomcat:tomcat /tmp/tomcat
 ENTRYPOINT ["tomcat_startup.sh"]
 CMD ["catalina.sh", "run"]
