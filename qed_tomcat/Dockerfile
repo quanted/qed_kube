@@ -16,7 +16,7 @@ WORKDIR /home/tomcat
 
 COPY tomcat_startup.sh /tomcat_startup.sh
 RUN chown -R tomcat:tomcat /tomcat_startup.sh && chmod +x /tomcat_startup.sh
-RUN chown -R tomcat:tomcat /tmp/tomcat
+RUN mkdir -p /tmp/tomcat && chown -R tomcat:tomcat /tmp/tomcat
 
 # Sets default user as "tomcat"
 USER tomcat
