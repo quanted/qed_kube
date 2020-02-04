@@ -20,7 +20,7 @@ spec:
         image: quanted/qed-tomcat
         name: qed-tomcat
         volumeMounts:
-        - mountPath: /usr/local/tomcat/
+        - mountPath: /tmp/tomcat/
           name: qed-tomcat-config
       restartPolicy: Always
       volumes:
