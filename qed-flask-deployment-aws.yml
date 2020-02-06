@@ -19,7 +19,7 @@ spec:
           value: redis
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
-        image: quanted/flask_qed:dev_kube
+        image: quanted/flask_qed:dev
         imagePullPolicy: Always
         name: qed-flask
         ports:

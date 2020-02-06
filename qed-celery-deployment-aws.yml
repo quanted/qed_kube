@@ -29,7 +29,7 @@ spec:
           value: QED-KUBERNETES
         - name: REDIS_HOSTNAME
           value: redis
-        image: quanted/flask_qed:dev_kube
+        image: quanted/flask_qed:dev
         imagePullPolicy: Always
         name: qed-celery
         volumeMounts:
