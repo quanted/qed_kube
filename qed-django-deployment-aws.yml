@@ -19,6 +19,12 @@ spec:
           value: redis
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
+        - name: DJANGO_SETTINGS_MODULE
+          value: settings_kube
+        - name: IS_PUBLIC
+          value: True
+        - name: PASSWORD_REQUIRED
+          value: True
         image: quanted/qed-django
         imagePullPolicy: Always
         name: qed-django
