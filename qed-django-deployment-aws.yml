@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -8,6 +8,9 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+       app: qed-django
   template:
     metadata:
       labels:
@@ -22,9 +25,9 @@ spec:
         - name: DJANGO_SETTINGS_MODULE
           value: settings_kube
         - name: IS_PUBLIC
-          value: True
+          value: "True"
         - name: PASSWORD_REQUIRED
-          value: True
+          value: "True"
         image: quanted/qed-django
         imagePullPolicy: Always
         name: qed-django
