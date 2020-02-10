@@ -22,6 +22,8 @@ spec:
           value: 'True'
         - name: PYTHONPATH
           value: /src:/src/qed
+        - name: UBERTOOL_REST_SERVER
+          value: http://qed-nginx:7777
         image: quanted/qed-dask
         name: dask-worker
         volumeMounts:
