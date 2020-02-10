@@ -1,4 +1,4 @@
-FROM daskdev/dask:2.10.0
+FROM daskdev/dask:2.10.1
 
 RUN apt update && apt install firefox-esr -y
   
