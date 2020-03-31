@@ -6,6 +6,6 @@ RUN apt update -y && \
 COPY dask_requirements.txt /tmp
 RUN cd /tmp && git clone -b dev https://github.com/quanted/requirements_qed.git && \
     pip install -r requirements_qed/requirements.txt && \
-    pip install -r dask_requirements.txt
+    pip install --force-reinstall -r dask_requirements.txt
 
 CMD ["dask-worker", "dask_scheduler:8786"]
