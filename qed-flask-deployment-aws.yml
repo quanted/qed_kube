@@ -1,11 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  generation: 2
   labels:
     app: qed-flask
   name: qed-flask
+  namespace: qed
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: qed-flask
   strategy:
     type: Recreate
   template:
@@ -19,18 +26,25 @@ spec:
           value: redis
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
-        image: quanted/flask_qed:dev
+        image: quanted/flask_qed:lite
         imagePullPolicy: Always
         name: qed-flask
         ports:
         - containerPort: 8080
+          protocol: TCP
         volumeMounts:
+        - mountPath: /src
+          name: qed-flask
         - mountPath: /src/collected-static
           name: collected-static
         - mountPath: /src/app-data
           name: app-data
       restartPolicy: Always
+      schedulerName: default-scheduler
       volumes:
+      - name: qed-flask
+        persistentVolumeClaim:
+          claimName: qed-flask-pvolume-claim1
       - name: app-data
         persistentVolumeClaim:
           claimName: app-data-pvolume-claim1

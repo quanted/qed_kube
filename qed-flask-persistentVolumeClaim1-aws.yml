@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qed-flask-pvolume-claim1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: aws-efs
+    volume.beta.kubernetes.io/storage-provisioner: example.com/aws-efs
+  namespace: qed
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  volumeName: pvc-5cb96af1-6344-494c-8590-5269cff145e9
