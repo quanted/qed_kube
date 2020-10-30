@@ -31,12 +31,14 @@ spec:
         - --loglevel=DEBUG
         - -n
         - qed-worker
+        - --uid=nobody
+        - --gid=nogroup
         env:
         - name: DOCKER_HOSTNAME
           value: QED-KUBERNETES
         - name: REDIS_HOSTNAME
           value: redis
-        image: quanted/flask_qed:lite
+        image: quanted/flask_qed:dev_mc
         imagePullPolicy: Always
         name: qed-celery
         volumeMounts:
