@@ -4,7 +4,7 @@ stages:
 Build Dask Image:
   stage: Build
   tags:
-    - docker
+    - devsecops-instance
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -16,7 +16,7 @@ Build Dask Image:
 Build MongoDB Image:
   stage: Build
   tags:
-    - docker
+    - devsecops-instance
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -28,7 +28,7 @@ Build MongoDB Image:
 Build Redis Image:
   stage: Build
   tags:
-    - docker
+    - devsecops-instance
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -40,7 +40,7 @@ Build Redis Image:
 Build PostGRES Image:
   stage: Build
   tags:
-    - docker
+    - devsecops-instance
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -52,7 +52,7 @@ Build PostGRES Image:
 Build Tomcat Image:
   stage: Build
   tags:
-    - docker
+    - devsecops-instance
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
