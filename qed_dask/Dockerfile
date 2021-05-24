@@ -10,4 +10,7 @@ RUN pip install --force-reinstall msgpack==0.6.2
 RUN conda install -c conda-forge scipy
 RUN conda install -c conda-forge numpy
 
+ENV PATH "/src/qed:/src/qed/flask_qed:${PATH}" 
+ENV PYTHONPATH "/src/qed:/src/qed/flask_qed:${PYTHONPATH}" 
+
 CMD ["dask-worker", "dask_scheduler:8786"]
