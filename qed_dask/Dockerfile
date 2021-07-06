@@ -1,4 +1,4 @@
-FROM daskdev/dask:2.10.1
+FROM daskdev/dask:2021.6.1
 
 RUN apt update -y && \
     apt install firefox-esr git build-essential python3-dev libpq-dev -y && \
