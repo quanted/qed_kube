@@ -6,7 +6,7 @@ RUN apt update -y && \
 COPY dask_requirements.txt /tmp
 RUN cd /tmp && git clone -b dev https://github.com/quanted/requirements_qed.git && \
     pip install --upgrade -r requirements_qed/requirements.txt
-RUN pip install --force-reinstall msgpack==0.6.2
+#RUN pip install --force-reinstall msgpack==0.6.2
 RUN conda install -c conda-forge scipy
 RUN conda install -c conda-forge numpy
 
