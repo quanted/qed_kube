@@ -5,10 +5,10 @@ RUN apt update -y && \
     pip install -U pip
 RUN conda create -n pyenv -y python=3.8.10
 COPY dask_requirements.txt /tmp
+RUN conda install -n pyenv -c conda-forge scipy
 RUN cd /tmp && git clone -b dev https://github.com/quanted/requirements_qed.git && \
     conda run -n pyenv --no-capture-output pip install --force-reinstall -r requirements_qed/requirements.txt
 # RUN pip install --force-reinstall msgpack==0.6.2
-RUN conda install -n pyenv -c conda-forge scipy
 # RUN conda install -c conda-forge numpy
 SHELL ["conda", "run", "-n", "pyenv", "/bin/bash", "-c"]
 
