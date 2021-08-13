@@ -15,4 +15,4 @@ SHELL ["conda", "run", "-n", "pyenv", "/bin/bash", "-c"]
 ENV PATH "/src/qed:/src/qed/flask_qed:${PATH}" 
 ENV PYTHONPATH "/src/qed:/src/qed/flask_qed:${PYTHONPATH}" 
 
-CMD ["conda", "run", "-n", "pyenv", "--no-capture-output", "dask-worker", "dask_scheduler:8786"]
+CMD ["conda", "run", "-n", "pyenv", "--no-capture-output", "dask-worker", "dask-scheduler:8786"]
