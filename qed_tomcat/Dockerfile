@@ -16,3 +16,11 @@ WORKDIR /home/tomcat
 
 # Sets default user as "tomcat"
 USER tomcat
+
+COPY tomcat_startup.sh /tomcat_startup.sh
+
+RUN chown -R tomcat:tomcat /tomcat_startup.sh && chmod +x /tomcat_startup.sh
+
+ENV PATH=/:$PATH
+
+CMD ["sh", "tomcat_startup.sh"]
