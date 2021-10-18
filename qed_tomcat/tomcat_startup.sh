@@ -15,5 +15,6 @@ ln -s /mnt/tomcat/webapps /usr/local/tomcat/webapps
 
 echo "Syn link /usr/local/tomcat/webapps"
 ls /usr/local/tomcat/webapps
+chown -R tomcat:tomcat /usr/local/tomcat/webapps
 
 exec "$@"
