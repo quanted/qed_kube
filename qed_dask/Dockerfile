@@ -1,8 +1,12 @@
 FROM daskdev/dask:2021.6.1
 
-RUN apt update -y && \
-    apt install firefox-esr git build-essential python3-dev libpq-dev -y && \
+
+RUN apt-get update --allow-releaseinfo-change -y
+RUN apt-get upgrade --fix-missing -y
+RUN apt-get install firefox-esr git build-essential python3-dev libpq-dev -y --fix-missing && \
     pip install -U pip
+
+
 RUN conda create -n pyenv -y python=3.8.10
 COPY dask_requirements.txt /tmp
 RUN conda install -n pyenv -c conda-forge scipy
