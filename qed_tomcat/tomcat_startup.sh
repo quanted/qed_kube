@@ -12,8 +12,7 @@ cp -rf /mnt/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 
 rm -rf /usr/local/tomcat/webapps
 mkdir /usr/local/tomcat/webapps
-cp -rf /mnt/tomcat/webapps/* /usr/local/tomcat/webapps
-#ln -s /mnt/tomcat/webapps /usr/local/tomcat/webapps
+ln -s /mnt/tomcat/webapps /usr/local/tomcat/webapps
 
 echo "Syn link /usr/local/tomcat/webapps"
 ls /usr/local/tomcat/webapps
