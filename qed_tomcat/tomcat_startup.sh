@@ -18,4 +18,5 @@ echo "Syn link /usr/local/tomcat/webapps"
 ls /usr/local/tomcat/webapps
 chown -R tomcat:tomcat /usr/local/tomcat/webapps
 
-exec "$@"
+exec /usr/local/tomcat/bin/catalina.sh run
+#exec "$@"
