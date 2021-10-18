@@ -11,16 +11,16 @@ RUN mkdir -p /home/tomcat/.chemaxon/licenses && \
 # Makes "tomcat" user as owner of chemaxon dir
 RUN chown -R tomcat:tomcat /home/tomcat/.chemaxon
 
+COPY tomcat_startup.sh /home/tomcat/tomcat_startup.sh
+
 # Sets work directory to "tomcat" folder
 WORKDIR /home/tomcat
 
-COPY tomcat_startup.sh /tomcat_startup.sh
-RUN chown -R tomcat:tomcat /tomcat_startup.sh && chmod +x /tomcat_startup.sh
-RUN mkdir -p /tmp/tomcat && chown -R tomcat:tomcat /tmp/tomcat
+RUN chown -R tomcat:tomcat tomcat_startup.sh && chmod +x tomcat_startup.sh
+
+ENV PATH=/:$PATH
 
 # Sets default user as "tomcat"
 USER tomcat
-ENV PATH=/:$PATH
 
-ENTRYPOINT ["tomcat_startup.sh"]
-CMD ["catalina.sh", "run"]
+CMD ["sh", "tomcat_startup.sh"]
