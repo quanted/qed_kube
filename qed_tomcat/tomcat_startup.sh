@@ -7,10 +7,13 @@ cp -rf /mnt/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 echo "/usr/local/tomcat directory contents"
 ls /usr/local/tomcat
 
-echo "/usr/local/tomcat/webapps"
+echo "original /usr/local/tomcat/webapps"
 ls /usr/local/tomcat/webapps
 
 rm -rf /usr/local/tomcat/webapps
-ln -s /mnt/tomcat/webapps /usr/local/tomcat
+ln -s /mnt/tomcat/webapps /usr/local/tomcat/webapps
+
+echo "Syn link /usr/local/tomcat/webapps"
+ls /usr/local/tomcat/webapps
 
 exec "$@"
