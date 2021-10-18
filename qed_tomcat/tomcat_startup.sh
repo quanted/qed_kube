@@ -1,10 +1,16 @@
 #!/bin/bash
 set -e
 echo "Creating links for mounted volume directories"
-ln -s /usr/local/tomcat/.chemaxon/licenses /home/tomcat/.chemaxon/licenses
-rm /usr/local/tomcat/conf/tomcat-users.xml
-cp -rf /usr/local/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
-# rm -rf /usr/local/tomcat/webapps
-# ln -s /tmp/tomcat/webapps /usr/local/tomcat
+ln -s /mnt/tomcat/.chemaxon/licenses /home/tomcat/.chemaxon/licenses
+cp -rf /mnt/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
+
+echo "/usr/local/tomcat directory contents"
+ls /usr/local/tomcat
+
+echo "/usr/local/tomcat/webapps"
+ls /usr/local/tomcat/webapps
+
+rm -rf /usr/local/tomcat/webapps
+ln -s /mnt/tomcat/webapps /usr/local/tomcat
 
 exec "$@"
