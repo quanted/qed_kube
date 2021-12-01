@@ -1,5 +1,6 @@
 stages:
   - Build
+  - Image Scan
 
 Build Dask Image:
   stage: Build
