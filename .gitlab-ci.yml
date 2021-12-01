@@ -60,3 +60,44 @@ Build Tomcat Image:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR/qed_tomcat --dockerfile $CI_PROJECT_DIR/qed_tomcat/Dockerfile --destination $CI_REGISTRY_IMAGE/qed-tomcat:$CI_COMMIT_REF_NAME
+
+Prisma Dask:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  script:
+    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/qed-dask:$CI_COMMIT_REF_NAME
+    
+Prisma MongoDB:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  script:
+    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/mongodb:$CI_COMMIT_REF_NAME
+    
+Prisma Redis:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  script:
+    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/redis:$CI_COMMIT_REF_NAME
+    
+Prisma PostGRES:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  script:
+    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/postgres:$CI_COMMIT_REF_NAME
+    
+Prisma Tomcat:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  script:
+    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/tomcat:$CI_COMMIT_REF_NAME
+    
