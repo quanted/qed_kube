@@ -5,7 +5,7 @@ ln -s /mnt/tomcat/.chemaxon/licenses /home/tomcat/.chemaxon/licenses
 cp -rf /mnt/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 
 echo "Listing /mnt/tomcat/.chemaxon/licenses"
-ls /mnt/tomcat/.chemaxon/licenses
+ls -la /mnt/tomcat
 echo "Listing /home/tomcat/.chemaxon/licenses"
 ls /home/tomcat/.chemaxon/licenses
 
