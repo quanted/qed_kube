@@ -9,7 +9,7 @@ cp -rf /mnt/tomcat/chemaxon/licenses/. /home/tomcat/.chemaxon/licenses
 echo "Listing license folder"
 ls /home/tomcat/.chemaxon
 echo "Listing license contents"
-ls /home/tomcat/.chemaoxn/licenses
+ls /home/tomcat/.chemaxon/licenses
 
 
 #echo "Listing /mnt/tomcat/.chemaxon/licenses"
