@@ -62,43 +62,88 @@ Build Tomcat Image:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR/qed_tomcat --dockerfile $CI_PROJECT_DIR/qed_tomcat/Dockerfile --destination $CI_REGISTRY_IMAGE/qed-tomcat:$CI_COMMIT_REF_NAME
 
-Prisma Dask:
+prisma-cloud-compute-scan-dask:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
+  allow_failure: false
+  variables:
+      prisma_cloud_scan_image: "registry.epa.gov/qed/qed-kube/qed-dask:dev"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/qed-dask:$CI_COMMIT_REF_NAME
-    
-Prisma MongoDB:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $prisma_cloud_scan_image
+    - ./image_scan.sh 
+
+prisma-cloud-compute-scan-mongodb:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
+  allow_failure: false
+  variables:
+      prisma_cloud_scan_image: "registry.epa.gov/qed/qed-kube/mongodb:dev"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/mongodb:$CI_COMMIT_REF_NAME
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $prisma_cloud_scan_image
+    - ./image_scan.sh 
     
-Prisma Redis:
+prisma-cloud-compute-scan-redis:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
+  allow_failure: false
+  variables:
+      prisma_cloud_scan_image: "registry.epa.gov/qed/qed-kube/redis:dev"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/redis:$CI_COMMIT_REF_NAME
-    
-Prisma PostGRES:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $prisma_cloud_scan_image
+    - ./image_scan.sh 
+
+prisma-cloud-compute-scan-postgres:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
+  allow_failure: false
+  variables:
+      prisma_cloud_scan_image: "registry.epa.gov/qed/qed-kube/postgres:dev"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/postgres:$CI_COMMIT_REF_NAME
-    
-Prisma Tomcat:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $prisma_cloud_scan_image
+    - ./image_scan.sh 
+
+prisma-cloud-compute-scan-tomcat:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
+  allow_failure: false
+  variables:
+      prisma_cloud_scan_image: "registry.epa.gov/qed/qed-kube/qed-tomcat:dev"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $CI_REGISTRY_IMAGE/tomcat:$CI_COMMIT_REF_NAME
-    
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $prisma_cloud_scan_image
+    - ./image_scan.sh 
+ 
