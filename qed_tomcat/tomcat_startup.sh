@@ -1,13 +1,21 @@
 #!/bin/bash
 set -e
 echo "Creating links for mounted volume directories"
-ln -s /mnt/tomcat/.chemaxon/licenses /home/tomcat/.chemaxon/licenses
+#ln -s /mnt/tomcat/.chemaxon/licenses /home/tomcat/.chemaxon/licenses
 cp -rf /mnt/tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 
-echo "Listing /mnt/tomcat/.chemaxon/licenses"
-ls -la /mnt/tomcat
-echo "Listing /home/tomcat/.chemaxon/licenses"
-ls /home/tomcat/.chemaxon/licenses
+echo "Copying chemaxon licenses"
+cp -rf /mnt/tomcat/chemaxon/licenses/. /home/tomcat/.chemaxon/licenses
+echo "Listing license folder"
+ls /home/tomcat/.chemaxon
+echo "Listing license contents"
+ls /home/tomcat/.chemaoxn/licenses
+
+
+#echo "Listing /mnt/tomcat/.chemaxon/licenses"
+#ls -la /mnt/tomcat
+#echo "Listing /home/tomcat/.chemaxon/licenses"
+#ls /home/tomcat/.chemaxon/licenses
 
 #echo "/usr/local/tomcat directory contents"
 #ls /usr/local/tomcat
